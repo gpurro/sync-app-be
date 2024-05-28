@@ -1,5 +1,5 @@
 import { environment } from "./config/environment";
-import { DataSourceModel, MongoDb } from "./data/mongo";
+import { DataSourceModel, MongoDb } from "./data";
 import { AppRouter } from "./presentation/app-router";
 import { AppServer } from "./presentation/app-server";
 

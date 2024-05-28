@@ -1,5 +1,5 @@
 import { environment as env } from '../../config';
-import { DataSourceModel, MongoDb } from '../mongo';
+import { DataSourceModel, EntityModel, MongoDb } from '..';
 import { seedData } from './data';
 
 
@@ -19,10 +19,28 @@ async function main() {
   // 0. delete all!
   await Promise.all([
     DataSourceModel.deleteMany(),
+    EntityModel.deleteMany()
   ]);
 
   // 1. Create DataSources
-  const users = await DataSourceModel.insertMany( seedData.dataSources );
+  const dataSources = await DataSourceModel.insertMany( seedData.dataSources );
+
+  // 3. Create Entities
+  const products = await EntityModel.insertMany(
+    seedData.entities.map( entity => {
+
+      const dataSource = dataSources.find( dataSource => entity.dataSource==dataSource.name );
+
+      if (!dataSource) throw new Error(`Error importing Entities. No dataSourceId found ${ JSON.stringify(entity) }`) ;
+      
+      return {
+        ...entity,
+        dataSource: dataSource._id
+      }
+
+
+    })
+  );
 
   // end
   console.log('Data seeded!');
