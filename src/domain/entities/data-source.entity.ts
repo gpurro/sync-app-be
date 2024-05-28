@@ -5,21 +5,18 @@ interface Options {
 
 export class DataSourceEntity {
 
-  private _name: string;
+  public name: string;
 
   constructor(options: Options) {
-    this._name = options.name;
+    this.name = options.name;
   }
 
-  public get name() {
-    return this._name;
-  }
+  static createFromRequestBody(body: Record<string, any>): [string?, DataSourceEntity?] {
+   
+    if (!body.name) return ['name is required'];
 
-  public set name(newName: string) {
-    this._name = newName
-  }
-
-  createFromMongoModel() {
-
+    return [undefined, new DataSourceEntity({
+      name: body.name
+    })];
   }
 }
