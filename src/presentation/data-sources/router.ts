@@ -5,6 +5,7 @@ import { DataSourceController } from "./controller";
 export class DataSourceRouter {
 
   static get router(): Router {
+    
     const router = Router();
 
     const service = new DataSourceService();
@@ -13,7 +14,7 @@ export class DataSourceRouter {
     // set all the DataSource routes
     router.get( '/', controller.getAll );    
     router.post( '/', controller.create );
-    
+
     return router;
   }
 }

@@ -1,22 +1,26 @@
+import { GenericEntity } from "./abstract/generic.entity";
 
 interface Options {
-  name: string
-}
+  name: string,
+  appName?: string|null,
+};
 
-export class DataSourceEntity {
+export class DataSourceEntity extends GenericEntity {
 
-  public name: string;
+  public appName:string|null=null;
 
   constructor(options: Options) {
-    this.name = options.name;
+    super(options);
+    this.appName=options.appName || null;
   }
 
-  static createFromRequestBody(body: Record<string, any>): [string?, DataSourceEntity?] {
+  static override createFromRequestBody(body: Record<string, any>): [string?, DataSourceEntity?] {
    
     if (!body.name) return ['name is required'];
 
     return [undefined, new DataSourceEntity({
-      name: body.name
+      name: body.name,
+      appName: body.appName,
     })];
   }
 }

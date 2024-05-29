@@ -1,9 +1,9 @@
 export const seedData = {
   dataSources: [
-    { name: 'Driven' },
+    { name: 'Driven', appName: 'app1' },
     { name: 'Till' },
-    { name: 'planned' },
-    { name: 'combination' },
+    { name: 'planned', appName: 'app2' },
+    { name: 'combination', appName: 'app3' },
     { name: 'felt' },
   ],
 
