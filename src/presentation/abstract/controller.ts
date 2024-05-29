@@ -24,7 +24,7 @@ export abstract class ApiController {
     if (error) return res.status(400).json({ error });
 
     this.apiService.create(genericEntity!)
-      .then( documents => res.status(201).json(document) )
+      .then( documents => res.status(201).json(documents) )
       .catch( error => this.handleError(error, res) );
   };
 

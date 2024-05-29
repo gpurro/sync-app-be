@@ -16,11 +16,13 @@ export class DataSourceEntity extends GenericEntity {
 
   static override createFromRequestBody(body: Record<string, any>): [string?, DataSourceEntity?] {
    
-    if (!body.name) return ['name is required'];
+    const { name, appName } = body;
+
+    if (!name) return ['Name is required'];
 
     return [undefined, new DataSourceEntity({
-      name: body.name,
-      appName: body.appName,
+      name,
+      appName,
     })];
   }
 }

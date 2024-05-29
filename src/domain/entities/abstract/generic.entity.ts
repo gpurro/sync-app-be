@@ -13,10 +13,11 @@ export class GenericEntity {
 
   static createFromRequestBody(body: Record<string, any>): [string?, GenericEntity?] {
    
-    if (!body.name) return ['name is required'];
+    const { name } = body;
+    if (!name) return ['Name is required'];
 
     return [undefined, new GenericEntity({
-      name: body.name,
+      name,
     })];
   }
 }
