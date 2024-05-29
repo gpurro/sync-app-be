@@ -1,13 +1,13 @@
 
 import { Response, Request } from 'express';
 import { CustomError, GenericEntity, PaginationEntity } from '../../domain';
-import { ApiService } from './service';
+import { ApiBaseService } from './api-base.service';
 
-export abstract class ApiController {
+export abstract class ApiBaseController {
 
   constructor(
     public resourceName: string,
-    public apiService: ApiService,
+    public apiService: ApiBaseService,
   ) {}
 
   protected handleError = ( error: unknown, res: Response ) => {

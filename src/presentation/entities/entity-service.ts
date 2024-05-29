@@ -1,8 +1,8 @@
 import { EntityModel } from '../../data';
 import { EntityEntity } from '../../domain';
-import { ApiService } from '../abstract/service';
+import { ApiBaseService } from '../api-base/api-base.service';
 
-export class EntityService extends ApiService {
+export class EntityService extends ApiBaseService {
 
   // DI
   constructor() { 
@@ -11,6 +11,10 @@ export class EntityService extends ApiService {
       EntityModel, 
       EntityEntity
     );
+  }
+
+  public initializeRecords() {
+    
   }
 }
 

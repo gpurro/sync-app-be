@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { DataSourceRouter } from "./data-sources/router";
-import { EntityRouter } from "./entities/router";
+import { DataSourceRouter } from "./data-sources/data-source.router";
+import { EntityRouter } from "./entities/entity-router";
 
 export class AppRouter {
 

@@ -1,7 +1,7 @@
 import { environment } from "./config/environment";
 import { DataSourceModel, MongoDb } from "./data";
-import { AppRouter } from "./presentation/app-router";
-import { AppServer } from "./presentation/app-server";
+import { AppRouter } from "./presentation/app.router";
+import { AppServer } from "./presentation/app.server";
 
 (async()=> {
   await main();

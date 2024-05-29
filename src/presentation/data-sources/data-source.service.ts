@@ -1,8 +1,8 @@
 import { DataSourceModel } from '../../data';
 import { DataSourceEntity } from '../../domain';
-import { ApiService } from '../abstract/service';
+import { ApiBaseService } from '../api-base/api-base.service';
 
-export class DataSourceService extends ApiService {
+export class DataSourceService extends ApiBaseService {
 
   // DI
   constructor() { 

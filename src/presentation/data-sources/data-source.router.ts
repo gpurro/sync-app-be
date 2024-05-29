@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { DataSourceService } from "./service";
-import { DataSourceController } from "./controller";
+import { DataSourceService } from "./data-source.service";
+import { DataSourceController } from "./data-source.controller";
 
 export class DataSourceRouter {
 
