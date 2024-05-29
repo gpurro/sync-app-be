@@ -1,20 +1,20 @@
 import { Validators } from "../../config";
-import { GenericEntity } from "./abstract/generic.entity";
+import { GenericEntity } from "./generic/generic.entity";
 
 interface Options {
   name: string,
-  dataSource?: string|null,
+  dataSource: string,
   apiResourceName: string
 };
 
 export class EntityEntity extends GenericEntity {
 
-  public dataSource:string|null=null;
+  public dataSource:string;
   public apiResourceName:string;
 
   constructor(options: Options) {
     super(options);
-    this.dataSource=options.dataSource || null;
+    this.dataSource=options.dataSource;
     this.apiResourceName=options.apiResourceName;
   }
 

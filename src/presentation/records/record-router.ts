@@ -1,15 +1,15 @@
 import { Router } from "express";
-import { EntityService } from "./entity-service";
-import { EntityController } from "./entity-controller";
+import { RecordService } from "./record-service";
+import { RecordController } from "./record-controller";
 
-export class EntityRouter {
+export class RecordRouter {
 
   static get router(): Router {
     
     const router = Router();
 
-    const service = new EntityService();
-    const controller = new EntityController(service);
+    const service = new RecordService();
+    const controller = new RecordController(service);
     
     // set all the routes
     router.get( '/', controller.getAll );    

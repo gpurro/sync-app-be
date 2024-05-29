@@ -11,7 +11,7 @@ export class DataSourceRouter {
     const service = new DataSourceService();
     const controller = new DataSourceController(service);
     
-    // set all the DataSource routes
+    // set all the routes
     router.get( '/', controller.getAll );    
     router.post( '/', controller.create );
 

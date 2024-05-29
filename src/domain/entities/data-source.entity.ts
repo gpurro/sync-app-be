@@ -1,4 +1,4 @@
-import { GenericEntity } from "./abstract/generic.entity";
+import { GenericEntity } from "./generic/generic.entity";
 
 interface Options {
   name: string,
