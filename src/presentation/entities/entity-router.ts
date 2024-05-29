@@ -12,8 +12,10 @@ export class EntityRouter {
     const controller = new EntityController(service);
     
     // set all the routes
-    router.get( '/', controller.getAll );    
-    router.post( '/', controller.create );
+    router.get( '/', controller.getAll); 
+    router.post( '/', controller.create);
+    router.get( '/:id', controller.getOne); 
+    router.get( '/:id/initialize', controller.initializeRecords );
 
     return router;
   }

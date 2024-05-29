@@ -2,6 +2,7 @@
 import { Response, Request } from 'express';
 import { CustomError, GenericEntity, PaginationEntity } from '../../domain';
 import { ApiBaseService } from './api-base.service';
+import { Validators } from '../../config';
 
 export abstract class ApiBaseController {
 
@@ -36,6 +37,16 @@ export abstract class ApiBaseController {
     
     this.apiService.getAll(paginationEntity!)
       .then( documents => res.json(documents))
+      .catch(error => this.handleError(error, res));
+  };
+
+  getOne = async (req: Request, res: Response) => {
+
+    const id = req.params.id;
+    if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
+    
+    this.apiService.getOne(id)
+      .then( document => res.json(document))
       .catch(error => this.handleError(error, res));
   };
 }

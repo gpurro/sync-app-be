@@ -12,8 +12,8 @@ export class RecordRouter {
     const controller = new RecordController(service);
     
     // set all the routes
-    router.get( '/', controller.getAll );    
-    router.post( '/', controller.create );
+    router.get( '/', controller.getAll);
+    router.post( '/', controller.create);
 
     return router;
   }

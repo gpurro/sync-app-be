@@ -13,9 +13,6 @@ export class RecordService extends ApiBaseService {
     );
   }
 
-  public initializeRecords() {
-    
-  }
 }
 
 

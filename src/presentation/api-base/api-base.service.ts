@@ -29,6 +29,17 @@ export abstract class ApiBaseService {
       throw CustomError.internalServer(`${ error }`);
     }    
   }
+  
+  async getOne(id:string) {
+    try {
+      const document = await this.genericModel.findById(id).exec();
+      return document;
+
+    } catch (error) {
+      console.log(error);
+      throw CustomError.internalServer('Internal Server Error');
+    }
+  }
 
   async getAll(paginationEntity: PaginationEntity) {
 
