@@ -21,7 +21,7 @@ export abstract class ApiBaseController {
 
   create = async ( req: Request, res: Response ) => {
 
-    const [error, genericEntity] = GenericEntity.createFromRequestBody(req.body);
+    const [error, genericEntity] = GenericEntity.createFromObject(req.body);
     if (error) return res.status(400).json({ error });
 
     this.apiService.create(genericEntity!)
@@ -32,7 +32,7 @@ export abstract class ApiBaseController {
   getAll = async (req: Request, res: Response) => {
 
     const { page = 1, limit = 10 } = req.query;
-    const [error, paginationEntity] = PaginationEntity.create( +page, +limit );
+    const [error, paginationEntity] = PaginationEntity.create(+page, +limit);
     if (error) return res.status(400).json({ error });
     
     this.apiService.getAll(paginationEntity!)

@@ -8,8 +8,7 @@ export class DataSourceService extends ApiBaseService {
   constructor() { 
     super(
       'data_source', 
-      DataSourceModel, 
-      DataSourceEntity
+      DataSourceModel
     );
   }
 }

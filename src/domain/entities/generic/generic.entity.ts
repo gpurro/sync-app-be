@@ -1,9 +1,10 @@
+import { classToObject } from "../../../config";
 
 interface Options {
   name: string
 }
 
-export class GenericEntity {
+export abstract class GenericEntity {
 
   public name: string;
 
@@ -11,13 +12,12 @@ export class GenericEntity {
     this.name = options.name;
   }
 
-  static createFromRequestBody(body: Record<string, any>): [string?, GenericEntity?] {
-   
-    const { name } = body;
-    if (!name) return ['Name is required'];
+  toObject() {
+    return classToObject(this);    
+  }
 
-    return [undefined, new GenericEntity({
-      name,
-    })];
+
+  static createFromObject(pojoObject: Record<string, any>): [string?, GenericEntity?] {
+    throw new Error('Method not implemented! Use derived class');
   }
 }

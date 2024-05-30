@@ -1,5 +1,6 @@
 import { EntityModel } from '../../data';
 import { CustomError, EntityEntity } from '../../domain';
+import { PcGroupsEntityManager } from '../../infrastructure/plugins';
 import { ApiBaseService } from '../api-base/api-base.service';
 
 export class EntityService extends ApiBaseService {
@@ -8,8 +9,7 @@ export class EntityService extends ApiBaseService {
   constructor() { 
     super(
       'entity', 
-      EntityModel, 
-      EntityEntity
+      EntityModel
     );
   }
 
@@ -21,6 +21,15 @@ export class EntityService extends ApiBaseService {
       if (document){
         await document.populate('dataSource', 'appName apiUrl apiAuthorizationType apiAuthorizationCredentials');
       }
+
+      const entityManager = new PcGroupsEntityManager(this);
+      const [error, entity] = EntityEntity.createFromObject(document.toObject());
+      if (error) throw new Error(error);
+
+      const entityObject = entity?.toObject();
+      
+      entityManager.initializeRecords(entity!);
+
       return document;
       
     } catch (error) {

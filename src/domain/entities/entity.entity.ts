@@ -1,3 +1,4 @@
+import { Document, StringSchemaDefinition } from "mongoose";
 import { Validators } from "../../config";
 import { GenericEntity } from "./generic/generic.entity";
 
@@ -18,9 +19,9 @@ export class EntityEntity extends GenericEntity {
     this.apiResourceName=options.apiResourceName;
   }
 
-  static override createFromRequestBody(body: Record<string, any>): [string?, EntityEntity?] {
+  static override createFromObject(pojoObject: Record<string, any>): [string?, EntityEntity?] {
    
-    const { name, dataSource, apiResourceName } = body;
+    const { name, dataSource, apiResourceName } = pojoObject;
 
     if (!name) return ['Name is required'];
 
@@ -35,4 +36,5 @@ export class EntityEntity extends GenericEntity {
       apiResourceName,
     })];
   }
+
 }

@@ -39,9 +39,9 @@ export class DataSourceEntity extends GenericEntity {
     this.appName=options.appName || null;
   }
 
-  static override createFromRequestBody(body: Record<string, any>): [string?, DataSourceEntity?] {
+  static override createFromObject(pojoObject: Record<string, any>): [string?, DataSourceEntity?] {
    
-    const { name, appName } = body;
+    const { name, appName } = pojoObject;
 
     if (!name) return ['Name is required'];
 

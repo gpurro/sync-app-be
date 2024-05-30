@@ -15,9 +15,9 @@ export class RecordEntity extends GenericEntity {
     this.entity=options.entity;
   }
 
-  static override createFromRequestBody(body: Record<string, any>): [string?, RecordEntity?] {
+  static override createFromObject(pojoObject: Record<string, any>): [string?, RecordEntity?] {
    
-    const { name, entity } = body;
+    const { name, entity } = pojoObject;
 
     if (!name) return ['Name is required'];
 

@@ -5,8 +5,7 @@ export abstract class ApiBaseService {
 
   constructor(
     public resourceName: string,
-    public genericModel: GenericModel<any>,
-    public genericEntity: GenericEntity,
+    public genericModel: GenericModel<any>
   ) {
   }
 

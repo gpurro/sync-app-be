@@ -1,5 +1,4 @@
 import { RecordModel } from '../../data';
-import { RecordEntity } from '../../domain';
 import { ApiBaseService } from '../api-base/api-base.service';
 
 export class RecordService extends ApiBaseService {
@@ -8,8 +7,7 @@ export class RecordService extends ApiBaseService {
   constructor() { 
     super(
       'entity', 
-      RecordModel, 
-      RecordEntity
+      RecordModel
     );
   }
 
