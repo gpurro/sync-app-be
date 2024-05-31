@@ -1,5 +1,6 @@
 import { DataSourceService } from './data-source.service';
 import { ApiBaseController } from '../api-base/api-base.controller';
+import { DataSourceEntity } from '../../domain';
 
 export class DataSourceController extends ApiBaseController {
 
@@ -9,7 +10,8 @@ export class DataSourceController extends ApiBaseController {
   ) { 
     super(
       'data_source',
-      dataSourceService
+      new DataSourceService(),
+      DataSourceEntity.createFromObject
     );
   }
 

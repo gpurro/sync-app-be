@@ -1,19 +1,19 @@
 import { Validators } from "../../config";
 import { GenericEntity } from "./generic/generic.entity";
-
-interface Options {
-  name: string,
-  entity: string,
-};
+import { IRecord } from "../../types";
 
 export class RecordEntity extends GenericEntity {
 
   public entity:string;
 
-  constructor(options: Options) {
-    super(options);
-    this.entity=options.entity;
+  constructor(record: IRecord) {
+    super(record);
+    this.entity=record.entity as string;
   }
+
+  toObject() {
+    return super.toObject() as IRecord;    
+  }  
 
   static override createFromObject(pojoObject: Record<string, any>): [string?, RecordEntity?] {
    

@@ -4,8 +4,8 @@ import { CustomError, PaginationEntity, GenericEntity } from '../../domain';
 export abstract class ApiBaseService {
 
   constructor(
-    public resourceName: string,
-    public genericModel: GenericModel<any>
+    public readonly resourceName: string,
+    public readonly genericModel: GenericModel<any>
   ) {
   }
 

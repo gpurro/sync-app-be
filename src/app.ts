@@ -14,11 +14,6 @@ async function main() {
     mongoUrl: environment.MONGO_URL,
   });
 
-  const dataSource = new DataSourceModel({
-    name: 'test 1'
-  });
-  await dataSource.save();
-
   const server = new AppServer({
     port: environment.PORT,
     publicPath: environment.PUBLIC_PATH,

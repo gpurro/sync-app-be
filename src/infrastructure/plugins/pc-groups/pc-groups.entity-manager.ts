@@ -1,6 +1,7 @@
 import { EntityEntity } from "../../../domain";
 import { EntityService } from "../../../presentation";
 import axios from 'axios';
+import { DataSource, Entity } from "../../../types";
 
 export class PcGroupsEntityManager {
   
@@ -13,20 +14,19 @@ export class PcGroupsEntityManager {
 
   }
 
-  public initializeRecords(entity: EntityEntity) {
+  public async initializeRecords(entity: Entity) {
+    
+    const dataSource = entity.dataSource as DataSource;
 
-    axios.get('https://example.com/api', { 
+    const resp = await axios.get(dataSource.apiUrl, { 
       auth: {
-        username: 'user',
-        password: 'pass'
+        username: dataSource.apiAuthorizationCredentials?.basicAuth?.username!,
+        password: dataSource.apiAuthorizationCredentials?.basicAuth?.password!
       } 
-    })
-    .then(response => {
-      // Handle success
-    })
-    .catch(error => {
-      // Handle error
     });
+
+    return resp.data;
+
   }
 
   public disconnect() {

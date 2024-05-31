@@ -1,5 +1,6 @@
 import { RecordService } from './record-service';
 import { ApiBaseController } from '../api-base/api-base.controller';
+import { RecordEntity } from '../../domain';
 
 export class RecordController extends ApiBaseController {
 
@@ -9,7 +10,8 @@ export class RecordController extends ApiBaseController {
   ) { 
     super(
       'record',
-      recordService
+      recordService,
+      RecordEntity.createFromObject
     );
   }
 }

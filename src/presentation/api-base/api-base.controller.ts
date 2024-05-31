@@ -7,8 +7,9 @@ import { Validators } from '../../config';
 export abstract class ApiBaseController {
 
   constructor(
-    public resourceName: string,
-    public apiService: ApiBaseService,
+    public readonly  resourceName: string,
+    public readonly apiService: ApiBaseService,
+    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, GenericEntity?],
   ) {}
 
   protected handleError = ( error: unknown, res: Response ) => {
@@ -21,7 +22,7 @@ export abstract class ApiBaseController {
 
   create = async ( req: Request, res: Response ) => {
 
-    const [error, genericEntity] = GenericEntity.createFromObject(req.body);
+    const [error, genericEntity] = this.createFromObject(req.body);
     if (error) return res.status(400).json({ error });
 
     this.apiService.create(genericEntity!)

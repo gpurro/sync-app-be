@@ -1,30 +1,5 @@
+import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "../../types";
 import { GenericEntity } from "./generic/generic.entity";
-
-interface Options {
-  name: string,
-  appName?: string|null,
-};
-
-type ApiAuthorizationType = 'noAuth' | 'basicAuth' | 'bearerToken' | 'oAuth2' | 'apiKey';
-
-interface ApiAuthorizationCredentials {
-  basicAuth?: {
-    username: string,
-    password: string
-  },
-  bearerToken?: {
-    token: string
-  },
-  oAuth2?: {
-    token: string,
-    headerPrefix: string
-  },
-  apiKey?: {
-    key: string,
-    value: string
-    addToMethod: 'header' | 'queryParams'
-  }
-}
 
 export class DataSourceEntity extends GenericEntity {
 
@@ -33,21 +8,28 @@ export class DataSourceEntity extends GenericEntity {
   public apiAuthorizationType:ApiAuthorizationType='noAuth';
   public apiAuthorizationCredentials:ApiAuthorizationCredentials|null=null;
 
-
-  constructor(options: Options) {
-    super(options);
-    this.appName=options.appName || null;
+  constructor(dataSource: DataSource) {
+    super(dataSource);
+    this.appName=dataSource.appName || null;
+    this.apiUrl=dataSource.apiUrl;
   }
+
+  toObject() {
+    return super.toObject() as DataSource;    
+  }    
 
   static override createFromObject(pojoObject: Record<string, any>): [string?, DataSourceEntity?] {
    
-    const { name, appName } = pojoObject;
+    const { name, appName, apiUrl, apiAuthorizationType, apiAuthorizationCredentials } = pojoObject;
 
     if (!name) return ['Name is required'];
 
     return [undefined, new DataSourceEntity({
       name,
       appName,
+      apiUrl,
+      apiAuthorizationType: apiAuthorizationType || 'noAuth',
+      apiAuthorizationCredentials
     })];
   }
 }

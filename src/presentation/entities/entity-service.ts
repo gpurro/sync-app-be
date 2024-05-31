@@ -26,11 +26,9 @@ export class EntityService extends ApiBaseService {
       const [error, entity] = EntityEntity.createFromObject(document.toObject());
       if (error) throw new Error(error);
 
-      const entityObject = entity?.toObject();
+      const pojoEntity = entity?.toObject();
       
-      entityManager.initializeRecords(entity!);
-
-      return document;
+      return entityManager.initializeRecords(pojoEntity!);
       
     } catch (error) {
       console.log(error);
