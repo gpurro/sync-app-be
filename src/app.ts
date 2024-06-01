@@ -17,7 +17,8 @@ async function main() {
   const server = new AppServer({
     port: environment.PORT,
     publicPath: environment.PUBLIC_PATH,
-    router: AppRouter.router
+    router: AppRouter.router,
+    swagger: { enabled: true }
   });
   await server.start();
 

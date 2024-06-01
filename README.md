@@ -2,6 +2,13 @@
 
 Sync entites between different data sources. 
 
+Features:
+- Typescript
+- MongoDb, Mongoose
+- OpenApi documentation (http://localhost:3000/api-docs)
+- Clean Architecture
+
+
 ## Install
 
 1. Copy the .env.template file as .env 
