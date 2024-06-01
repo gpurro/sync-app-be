@@ -1,4 +1,4 @@
-import { RecordService } from './record-service';
+import { RecordService } from './record.service';
 import { ApiBaseController } from '../api-base/api-base.controller';
 import { RecordEntity } from '../../domain';
 

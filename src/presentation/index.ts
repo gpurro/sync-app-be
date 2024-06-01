@@ -1,1 +1,1 @@
-export * from './entities/entity-service';
+export * from './entities/entity.service';

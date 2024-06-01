@@ -1,4 +1,4 @@
-import { EntityService } from './entity-service';
+import { EntityService } from './entity.service';
 import { ApiBaseController } from '../api-base/api-base.controller';
 import { PcGroupsEntityManager } from '../../infrastructure/plugins';
 import { Validators } from '../../config';
