@@ -1,7 +1,8 @@
 import { EntityModel } from '../../infrastructure';
-import { CustomError, EntityEntity } from '../../domain';
+import { EntityEntity } from '@entities';
 import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
-import { GenericService } from './generic.service';
+import { GenericService } from '@services';
+import { CustomError } from 'domain/errors/custom.error';
 
 export class EntityService extends GenericService {
 

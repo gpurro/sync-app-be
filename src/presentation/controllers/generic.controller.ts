@@ -1,8 +1,9 @@
 
 import { Response, Request } from 'express';
-import { CustomError, GenericEntity, PaginationEntity } from '../../domain';
-import { GenericService } from '../../application/services/generic.service';
-import { Validators } from '../../config';
+import { GenericEntity, PaginationEntity } from '@entities';
+import { GenericService } from '@services';
+import { Validators } from '@config';
+import { CustomError } from 'domain/errors/custom.error';
 
 export abstract class GenericController {
 

@@ -1,6 +1,6 @@
-import { DataSourceService } from '../../application/services/data-source.service';
+import { DataSourceService } from '@services';
 import { GenericController } from './generic.controller';
-import { DataSourceEntity } from '../../domain';
+import { DataSourceEntity } from '@entities';
 
 export class DataSourceController extends GenericController {
 

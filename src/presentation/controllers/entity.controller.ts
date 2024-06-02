@@ -1,9 +1,8 @@
-import { EntityService } from '../../application/services/entity.service';
+import { EntityService } from '@services';
 import { GenericController } from './generic.controller';
-import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
-import { Validators } from '../../config';
+import { Validators } from '@config';
 import { Response, Request } from 'express';
-import { EntityEntity } from '../../domain';
+import { EntityEntity } from '@entities';
 
 export class EntityController extends GenericController {
 

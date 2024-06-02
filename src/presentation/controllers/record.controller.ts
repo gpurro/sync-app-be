@@ -1,6 +1,6 @@
-import { RecordService } from '../../application/services/record.service';
+import { RecordService } from '@services';
 import { GenericController } from './generic.controller';
-import { RecordEntity } from '../../domain';
+import { RecordEntity } from '@entities';
 
 export class RecordController extends GenericController {
 

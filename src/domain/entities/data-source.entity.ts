@@ -1,4 +1,4 @@
-import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "../interfaces";
+import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "@interfaces/entities";
 import { GenericEntity } from "./generic.entity";
 
 export class DataSourceEntity extends GenericEntity {
