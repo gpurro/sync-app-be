@@ -1,9 +1,9 @@
 import { EntityModel } from '../../data';
 import { CustomError, EntityEntity } from '../../domain';
-import { PcGroupsEntityManager } from '../../infrastructure/plugins/entities/pc-groups';
-import { ApiBaseService } from '../api-base/api-base.service';
+import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
+import { GenericService } from './generic.service';
 
-export class EntityService extends ApiBaseService {
+export class EntityService extends GenericService {
 
   // DI
   constructor() { 

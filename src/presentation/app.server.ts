@@ -1,7 +1,7 @@
 import express, { Router, Response, Request, NextFunction } from 'express';
 import http from 'http';
 import path from 'path';
-import { swaggerSpec } from '../config/swagger';
+import { swaggerSpec } from '../infrastructure/swagger';
 import swaggerUi from 'swagger-ui-express';
 
 interface ConfigurationOptions {

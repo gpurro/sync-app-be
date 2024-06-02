@@ -1,5 +1,5 @@
-import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "../../types";
-import { GenericEntity } from "./generic/generic.entity";
+import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "../types";
+import { GenericEntity } from "./generic.entity";
 
 export class DataSourceEntity extends GenericEntity {
 

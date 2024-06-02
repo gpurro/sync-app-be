@@ -7,4 +7,4 @@ export * from './entities/record.entity';
 
 // other entities
 export * from './entities/pagination.entity';
-export * from './entities/generic/generic.entity';
+export * from './entities/generic.entity';

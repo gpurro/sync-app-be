@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { EntityService } from "./entity.service";
-import { EntityController } from "./entity.controller";
+import { EntityService } from "../../application/services/entity.service";
+import { EntityController } from "../controllers/entity.controller";
 
 export class EntityRouter {
 

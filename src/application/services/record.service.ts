@@ -1,7 +1,7 @@
 import { RecordModel } from '../../data';
-import { ApiBaseService } from '../api-base/api-base.service';
+import { GenericService } from './generic.service';
 
-export class RecordService extends ApiBaseService {
+export class RecordService extends GenericService {
 
   // DI
   constructor() { 

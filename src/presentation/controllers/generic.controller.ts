@@ -1,14 +1,14 @@
 
 import { Response, Request } from 'express';
 import { CustomError, GenericEntity, PaginationEntity } from '../../domain';
-import { ApiBaseService } from './api-base.service';
+import { GenericService } from '../../application/services/generic.service';
 import { Validators } from '../../config';
 
-export abstract class ApiBaseController {
+export abstract class GenericController {
 
   constructor(
     public readonly  resourceName: string,
-    public readonly apiService: ApiBaseService,
+    public readonly apiService: GenericService,
     public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, GenericEntity?],
   ) {}
 

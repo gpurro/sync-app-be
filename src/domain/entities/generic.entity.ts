@@ -1,4 +1,4 @@
-import { classToObject } from "../../../config";
+import { classToObject } from "../../config";
 
 interface Options {
   name: string

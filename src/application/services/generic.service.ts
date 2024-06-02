@@ -1,7 +1,7 @@
 import { GenericModel } from "../../data";
 import { CustomError, PaginationEntity, GenericEntity } from '../../domain';
 
-export abstract class ApiBaseService {
+export abstract class GenericService {
 
   constructor(
     public readonly resourceName: string,

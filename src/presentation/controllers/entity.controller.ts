@@ -1,11 +1,11 @@
-import { EntityService } from './entity.service';
-import { ApiBaseController } from '../api-base/api-base.controller';
-import { PcGroupsEntityManager } from '../../infrastructure/plugins/entities/pc-groups';
+import { EntityService } from '../../application/services/entity.service';
+import { GenericController } from './generic.controller';
+import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
 import { Validators } from '../../config';
 import { Response, Request } from 'express';
 import { EntityEntity } from '../../domain';
 
-export class EntityController extends ApiBaseController {
+export class EntityController extends GenericController {
 
   // DI
   constructor(

@@ -1,7 +1,7 @@
 import { environment as env } from '../../config';
 import { DataSourceModel, EntityModel, MongoDb } from '..';
 import { seedData } from './data';
-import { Entity } from '../../types';
+import { Entity } from '../../domain/types';
 
 
 (async()=> {

@@ -1,8 +1,8 @@
-import { RecordService } from './record.service';
-import { ApiBaseController } from '../api-base/api-base.controller';
+import { RecordService } from '../../application/services/record.service';
+import { GenericController } from './generic.controller';
 import { RecordEntity } from '../../domain';
 
-export class RecordController extends ApiBaseController {
+export class RecordController extends GenericController {
 
   // DI
   constructor(

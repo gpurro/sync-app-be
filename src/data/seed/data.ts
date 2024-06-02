@@ -1,5 +1,5 @@
 import { StringSchemaDefinition } from "mongoose";
-import { DataSource, Entity } from "../../types";
+import { DataSource, Entity } from "../../domain/types";
 
 export const seedData: {dataSources: DataSource[], entities: Entity[] } = {
   dataSources: [

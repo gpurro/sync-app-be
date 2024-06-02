@@ -1,8 +1,8 @@
-import { DataSourceService } from './data-source.service';
-import { ApiBaseController } from '../api-base/api-base.controller';
+import { DataSourceService } from '../../application/services/data-source.service';
+import { GenericController } from './generic.controller';
 import { DataSourceEntity } from '../../domain';
 
-export class DataSourceController extends ApiBaseController {
+export class DataSourceController extends GenericController {
 
   // DI
   constructor(

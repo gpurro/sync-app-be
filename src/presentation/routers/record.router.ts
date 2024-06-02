@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { RecordService } from "./record.service";
-import { RecordController } from "./record.controller";
+import { RecordService } from "../../application/services/record.service";
+import { RecordController } from "../controllers/record.controller";
 
 export class RecordRouter {
 
