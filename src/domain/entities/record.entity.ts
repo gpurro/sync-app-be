@@ -1,8 +1,8 @@
 import { Validators } from "../../config";
-import { GenericEntity } from "./generic.entity";
+import { GenericEntityEntity } from "./generic-entity.entity";
 import { IRecord } from "@interfaces/entities";
 
-export class RecordEntity extends GenericEntity {
+export class RecordEntity extends GenericEntityEntity {
 
   public entity:string;
 

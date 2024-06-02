@@ -1,7 +1,7 @@
 import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "@interfaces/entities";
-import { GenericEntity } from "./generic.entity";
+import { GenericEntityEntity } from "./generic-entity.entity";
 
-export class DataSourceEntity extends GenericEntity {
+export class DataSourceEntity extends GenericEntityEntity {
 
   public appName:string|null=null;
   public apiUrl:string|null=null;

@@ -1,3 +1,4 @@
+import { GenericEntity } from "./generic-entity.interface";
 
 export type ApiAuthorizationType =  'noAuth' | 'basicAuth' | 'bearerToken' | 'oAuth2' | 'apiKey';
 
@@ -8,8 +9,7 @@ export type ApiAuthorizationCredentials = {
   apiKey?: ApiAuthorizationCredentialsApiKey
 }
 
-export interface DataSource {
-  name: string;
+export interface DataSource extends GenericEntity {
   appName?: string;
   apiUrl: string;
   apiAuthorizationType: ApiAuthorizationType;

@@ -1,9 +1,9 @@
 import { Document, StringSchemaDefinition } from "mongoose";
 import { Validators } from "../../config";
-import { GenericEntity } from "./generic.entity";
+import { GenericEntityEntity } from "./generic-entity.entity";
 import { Entity } from "@interfaces/entities";
 
-export class EntityEntity extends GenericEntity {
+export class EntityEntity extends GenericEntityEntity {
 
   public dataSource:string;
   public apiResourceName:string;
