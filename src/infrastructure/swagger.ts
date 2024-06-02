@@ -9,6 +9,6 @@ const options = {
       description: 'API documentation for Sync App',
     },
   },
-  apis: ['./src/presentation/**/*.ts'], // Path to the API routes
+  apis: ['./src/presentation/routers/**/*.ts'], // Path to the API routes
 };
 export const swaggerSpec = swaggerJsdoc(options);

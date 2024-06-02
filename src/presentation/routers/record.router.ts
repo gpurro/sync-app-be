@@ -4,7 +4,7 @@ import { RecordController } from "../controllers/record.controller";
 
 export class RecordRouter {
 
-  static get router(): Router {
+  static router(): Router {
     
     const router = Router();
 

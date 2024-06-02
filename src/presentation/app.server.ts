@@ -3,12 +3,12 @@ import http from 'http';
 import path from 'path';
 import { swaggerSpec } from '../infrastructure/swagger';
 import swaggerUi from 'swagger-ui-express';
+import { allowCORS } from './middleware/allow-cors.middleware';
 
 interface ConfigurationOptions {
   port: number;
   publicPath: string;
   router: Router;
-  swagger: { enabled: boolean };
 }
 
 export class AppServer {
@@ -19,13 +19,11 @@ export class AppServer {
   private readonly port: number;
   private readonly publicPath: string;
   private readonly router: Router;
-  private readonly swagger: { enabled: boolean };
 
   constructor(configurationOptions: ConfigurationOptions){
     this.port = configurationOptions.port;
     this.publicPath = configurationOptions.publicPath;
     this.router = configurationOptions.router;
-    this.swagger = configurationOptions.swagger;
   }
 
   async start() {
@@ -39,12 +37,10 @@ export class AppServer {
 
 
     //* Set CORS
-    this.app.use(this.allowCORS);
+    this.app.use(allowCORS);
     
     //* Set Router
     this.app.use(this.router);
-
-    this.swagger.enabled && this.enableSwagger();
 
     //* SPA
     this.app.get('*', (req, res) => {
@@ -59,28 +55,6 @@ export class AppServer {
 
   public close() {
     this.serverListener?.close();
-  }
-
-  private allowCORS(req: Request, res: Response, next: NextFunction) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader(
-      'Access-Control-Allow-Methods',
-      'OPTIONS, GET, POST, PUT, PATCH, DELETE'
-    );
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    next();
-  }; 
-
-  private enableSwagger() {
-
-    // Swagger Page
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-    
-    // Documentation in JSON format
-    this.app.get('/docs.json', (req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-      res.send(swaggerSpec)
-    })
   }
 
 }

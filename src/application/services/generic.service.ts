@@ -1,4 +1,4 @@
-import { GenericModel } from "../../data";
+import { GenericModel } from "../../infrastructure";
 import { CustomError, PaginationEntity, GenericEntity } from '../../domain';
 
 export abstract class GenericService {

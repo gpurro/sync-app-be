@@ -4,7 +4,7 @@ import { DataSourceController } from "../controllers/data-source.controller";
 
 export class DataSourceRouter {
 
-  static get router(): Router {
+  static router(): Router {
     
     const router = Router();
 

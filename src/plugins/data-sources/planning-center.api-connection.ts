@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DataSource } from '../../domain/types';
+import { DataSource } from '../../domain/interfaces';
 
 export const createApiConnection = (dataSource: DataSource) => { 
   

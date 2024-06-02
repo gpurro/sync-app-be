@@ -1,4 +1,4 @@
-import { EntityModel } from '../../data';
+import { EntityModel } from '../../infrastructure';
 import { CustomError, EntityEntity } from '../../domain';
 import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
 import { GenericService } from './generic.service';

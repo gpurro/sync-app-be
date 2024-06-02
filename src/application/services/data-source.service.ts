@@ -1,5 +1,4 @@
-import { DataSourceModel } from '../../data';
-import { DataSourceEntity } from '../../domain';
+import { DataSourceModel } from '../../infrastructure';
 import { GenericService } from './generic.service';
 
 export class DataSourceService extends GenericService {

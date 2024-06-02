@@ -2,7 +2,7 @@ import { EntityEntity } from "../../../domain";
 import { RecordEntity } from "../../../domain";
 import { EntityService } from "../../../application/services/entity.service";
 import { GenericService } from "../../../application/services/generic.service";
-import { DataSource, Entity } from "../../../domain/types";
+import { DataSource, Entity } from "../../../domain/interfaces";
 import { createApiConnection } from "../../data-sources/planning-center.api-connection";
 import { Axios, AxiosInstance } from 'axios';
 

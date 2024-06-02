@@ -4,7 +4,7 @@ import { EntityController } from "../controllers/entity.controller";
 
 export class EntityRouter {
 
-  static get router(): Router {
+  static router(): Router {
     
     const router = Router();
 

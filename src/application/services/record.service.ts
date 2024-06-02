@@ -1,4 +1,4 @@
-import { RecordModel } from '../../data';
+import { RecordModel } from '../../infrastructure';
 import { GenericService } from './generic.service';
 
 export class RecordService extends GenericService {

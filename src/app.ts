@@ -1,5 +1,5 @@
 import { environment } from "./config/environment";
-import { DataSourceModel, MongoDb } from "./data";
+import { DataSourceModel, MongoDb } from "./infrastructure";
 import { AppRouter } from "./presentation/routers/app.router";
 import { AppServer } from "./presentation/app.server";
 
@@ -17,8 +17,9 @@ async function main() {
   const server = new AppServer({
     port: environment.PORT,
     publicPath: environment.PUBLIC_PATH,
-    router: AppRouter.router,
-    swagger: { enabled: true }
+    router: AppRouter.router( {
+      swagger: { enabled: true }
+    }),
   });
   await server.start();
 
