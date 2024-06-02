@@ -1,6 +1,6 @@
 import { EntityModel } from '../../data';
 import { CustomError, EntityEntity } from '../../domain';
-import { PcGroupsEntityManager } from '../../infrastructure/plugins';
+import { PcGroupsEntityManager } from '../../infrastructure/plugins/entities/pc-groups';
 import { ApiBaseService } from '../api-base/api-base.service';
 
 export class EntityService extends ApiBaseService {

@@ -1,6 +1,6 @@
 import { EntityService } from './entity.service';
 import { ApiBaseController } from '../api-base/api-base.controller';
-import { PcGroupsEntityManager } from '../../infrastructure/plugins';
+import { PcGroupsEntityManager } from '../../infrastructure/plugins/entities/pc-groups';
 import { Validators } from '../../config';
 import { Response, Request } from 'express';
 import { EntityEntity } from '../../domain';
