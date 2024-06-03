@@ -1,8 +1,5 @@
-import { CustomError } from "domain/errors/custom.error";
-import { GenericModel } from "../../infrastructure";
 import { PaginationEntity, GenericEntity } from '@entities';
 import { IGenericRepository } from "@interfaces/repositories";
-import { IGeneric } from "@interfaces/entities";
 
 export abstract class GenericService<E extends GenericEntity>{
 
