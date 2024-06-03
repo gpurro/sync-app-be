@@ -5,7 +5,7 @@ import { GenericController } from './generic.controller';
 import { type IEntity } from '@interfaces/entities';
 import { Validators } from '@config';
 
-export class EntityController extends GenericController<IEntity, EntityEntity> {
+export class EntityController extends GenericController<EntityEntity> {
 
   // DI
   constructor(
@@ -24,7 +24,7 @@ export class EntityController extends GenericController<IEntity, EntityEntity> {
     if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
     
     this.entityService.initializeRecords(id)
-      .then( document => res.json(document))
+      .then( entity => res.json(entity))
       .catch(error => this.handleError(error, res));
   };
 }

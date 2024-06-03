@@ -4,7 +4,7 @@ import { RecordEntity } from '@entities';
 import { type IRecord } from '@interfaces/entities';
 import { type IRecordRepository } from '@interfaces/repositories';
 
-export class RecordService extends GenericService<IRecord, RecordEntity>{
+export class RecordService extends GenericService<RecordEntity>{
 
   // DI
   constructor(

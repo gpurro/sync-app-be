@@ -4,7 +4,7 @@ import { PaginationEntity, GenericEntity } from '@entities';
 import { IGenericRepository } from "@interfaces/repositories";
 import { IGeneric } from "@interfaces/entities";
 
-export abstract class GenericService<T extends IGeneric, E extends GenericEntity>{
+export abstract class GenericService<E extends GenericEntity>{
 
   constructor(
     protected readonly resourceName: string,

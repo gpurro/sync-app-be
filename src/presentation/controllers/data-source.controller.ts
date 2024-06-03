@@ -3,7 +3,7 @@ import { DataSourceEntity } from '@entities';
 import { GenericController } from './generic.controller';
 import { type IDataSource } from '@interfaces/entities';
 
-export class DataSourceController extends GenericController<IDataSource, DataSourceEntity> {
+export class DataSourceController extends GenericController<DataSourceEntity> {
 
   // DI
   constructor(

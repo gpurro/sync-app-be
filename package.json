@@ -4,7 +4,7 @@
   "description": "Sync App",
   "index": "src/app.ts",
   "scripts": {
-    "dev": "tsnd -r tsconfig-paths/register --respawn --clear src/app.ts ",
+    "dev": "tsnd -r tsconfig-paths/register --clear src/app.ts ",
     "build": "rimraf ./dist && tsc && tsc-alias",
     "start": "npm run build && node dist/app.js",
     "seed": "ts-node-dev -r tsconfig-paths/register ./src/data/seed/seed.ts && tsc-alias",
