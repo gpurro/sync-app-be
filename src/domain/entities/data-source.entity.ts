@@ -1,19 +1,19 @@
-import { IApiAuthorizationCredentials, IApiAuthorizationType, IDataSource } from "@interfaces/entities";
 import { GenericEntity } from "./generic.entity";
-import { Contains, IsDate } from "class-validator";
+import { type IApiAuthorizationCredentials, type IApiAuthorizationType, type IDataSource } from "@interfaces/entities";
 
-export class DataSourceEntity extends GenericEntity {
+export class DataSourceEntity extends GenericEntity implements IDataSource {
 
-  public appName:string|null=null;
-  public apiUrl: string|null=null;
+  public appName: string;
+  public apiUrl: string;
   public apiAuthorizationType: IApiAuthorizationType='noAuth';
   public apiAuthorizationCredentials: IApiAuthorizationCredentials|null=null;
 
   constructor(dataSource: IDataSource) {
     super(dataSource);
-    this.appName=dataSource.appName || null;
+    this.appName=dataSource.appName;
     this.apiUrl=dataSource.apiUrl;
-    Object.assign(this, dataSource);
+    this.apiAuthorizationType=dataSource.apiAuthorizationType || 'noAuth';
+    this.apiAuthorizationCredentials=dataSource.apiAuthorizationCredentials || null;
   }
 
   toObject() {

@@ -10,10 +10,10 @@ export type IApiAuthorizationCredentials = {
 }
 
 export interface IDataSource extends IGeneric {
-  appName?: string;
+  appName: string;
   apiUrl: string;
   apiAuthorizationType: IApiAuthorizationType;
-  apiAuthorizationCredentials?: IApiAuthorizationCredentials;
+  apiAuthorizationCredentials?: IApiAuthorizationCredentials|null;
 };
 
 export interface IApiAuthorizationCredentialsBasicAuth {

@@ -1,16 +1,15 @@
-import { Document, StringSchemaDefinition } from "mongoose";
 import { Validators } from "../../config";
 import { GenericEntity } from "./generic.entity";
-import { IEntity } from "@interfaces/entities";
+import { type IDataSource, type IEntity } from "@interfaces/entities";
 
-export class EntityEntity extends GenericEntity {
+export class EntityEntity extends GenericEntity implements IEntity {
 
-  public dataSource:string;
+  public dataSource: string | Record<string, unknown> | IDataSource;
   public apiResourceName:string;
 
   constructor(entity: IEntity) {
     super(entity);
-    this.dataSource=entity.dataSource as string;
+    this.dataSource=entity.dataSource;
     this.apiResourceName=entity.apiResourceName;
   }
 

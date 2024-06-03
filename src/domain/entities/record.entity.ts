@@ -1,14 +1,14 @@
 import { Validators } from "../../config";
 import { GenericEntity } from "./generic.entity";
-import { IRecord } from "@interfaces/entities";
+import { type IEntity, type IRecord } from "@interfaces/entities";
 
-export class RecordEntity extends GenericEntity {
+export class RecordEntity extends GenericEntity implements IRecord {
 
-  public entity:string;
+  public entity: string | Record<string,any> | IEntity;
 
   constructor(record: IRecord) {
     super(record);
-    this.entity=record.entity as string;
+    this.entity=record.entity;
   }
 
   toObject() {

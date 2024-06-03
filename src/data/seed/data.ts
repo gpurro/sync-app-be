@@ -16,6 +16,7 @@ export const seedData: {dataSources: IDataSource[], entities: IEntity[] } = {
       }
     },
     { name: 'Other',
+      appName: 'Other App',
       apiUrl: 'https://api.till.com/groups/v2',
       apiAuthorizationType: 'noAuth',
      },
