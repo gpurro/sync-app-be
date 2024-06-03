@@ -1,11 +1,11 @@
-import { GenericService } from "@services";
+import { RecordService } from "@services";
 import { type IDataSource, type IEntity } from "@interfaces/entities";
 import { createApiConnection } from "../../data-sources/planning-center.api-connection";
 
 export class PcGroupsEntityManager {
   
   constructor(
-    public recordService: GenericService
+    public recordService: RecordService,
   ){
 
   }

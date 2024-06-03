@@ -1,10 +1,10 @@
-import { GenService } from './gen.service';
+import { GenericService } from './generic.service';
 import { RecordEntity } from '@entities';
  
 import { type IRecord } from '@interfaces/entities';
 import { type IRecordRepository } from '@interfaces/repositories';
 
-export class RecordService extends GenService<IRecord, RecordEntity>{
+export class RecordService extends GenericService<IRecord, RecordEntity>{
 
   // DI
   constructor(

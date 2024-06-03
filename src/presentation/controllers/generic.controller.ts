@@ -4,13 +4,14 @@ import { GenericEntity, PaginationEntity } from '@entities';
 import { GenericService } from '@services';
 import { Validators } from '@config';
 import { CustomError } from 'domain/errors/custom.error';
+import { IGeneric } from '@interfaces/entities';
 
-export abstract class GenericController {
+export abstract class GenericController <T extends IGeneric, E extends GenericEntity> {
 
   constructor(
     public readonly  resourceName: string,
-    public readonly apiService: GenericService,
-    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, GenericEntity?],
+    public readonly service: GenericService<T , E>,
+    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, E?],
   ) {}
 
   protected handleError = ( error: unknown, res: Response ) => {
@@ -23,11 +24,11 @@ export abstract class GenericController {
 
   create = async ( req: Request, res: Response ) => {
 
-    const [error, genericEntity] = this.createFromObject(req.body);
+    const [error, entityEntity] = this.createFromObject(req.body);
     if (error) return res.status(400).json({ error });
 
-    this.apiService.create(genericEntity!)
-      .then( documents => res.status(201).json(documents) )
+    this.service.create(entityEntity!)
+      .then( entity => res.status(201).json(entity) )
       .catch( error => this.handleError(error, res) );
   };
 
@@ -37,8 +38,8 @@ export abstract class GenericController {
     const [error, paginationEntity] = PaginationEntity.create(+page, +limit);
     if (error) return res.status(400).json({ error });
     
-    this.apiService.getAll(paginationEntity!)
-      .then( documents => res.json(documents))
+    this.service.getAll(paginationEntity!)
+      .then( entities => res.json(entities))
       .catch(error => this.handleError(error, res));
   };
 
@@ -47,8 +48,8 @@ export abstract class GenericController {
     const id = req.params.id;
     if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
     
-    this.apiService.getOne(id)
-      .then( document => res.json(document))
+    this.service.getOne(id)
+      .then( enitity => res.json(enitity))
       .catch(error => this.handleError(error, res));
   };
 }

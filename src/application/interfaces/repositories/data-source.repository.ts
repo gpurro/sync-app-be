@@ -1,8 +1,7 @@
 import { DataSourceEntity } from "@entities";
 import { type IGenericRepository } from "./generic.repository";
-import { type IDataSource } from "@interfaces/entities";
 
-export interface IDataSourceRepository extends IGenericRepository<IDataSource, DataSourceEntity> {
+export interface IDataSourceRepository extends IGenericRepository<DataSourceEntity> {
   // custom methods here
 }
 

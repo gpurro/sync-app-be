@@ -1,10 +1,10 @@
-import { GenService } from './gen.service';
+import { GenericService } from './generic.service';
 import { DataSourceEntity } from '@entities';
 
 import { type IDataSource } from '@interfaces/entities';
 import { type IDataSourceRepository } from '@interfaces/repositories';
 
-export class DataSourceService extends GenService<IDataSource, DataSourceEntity>{
+export class DataSourceService extends GenericService<IDataSource, DataSourceEntity>{
 
   // DI
   constructor(

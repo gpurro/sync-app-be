@@ -4,7 +4,7 @@ import { type IGenericRepository, type IGetAllResponse } from '@interfaces/repos
 import { CustomError } from 'domain/errors/custom.error';
 import mongoose, { Model } from 'mongoose';
 
-export abstract class GenericRepository<T extends IGeneric, E extends GenericEntity> implements IGenericRepository<T, E> {
+export abstract class GenericRepository<T extends IGeneric, E extends GenericEntity> implements IGenericRepository<E> {
 
   protected model: Model<T>;
 
@@ -14,10 +14,10 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
   ) {
     this.model = mongoose.model<T>(modelName);
   }
-  async create(entity: T): Promise<E> {
+  async create(entity: E): Promise<E> {
    
     try {
-      const document = new this.model(entity);
+      const document = new this.model(entity.toObject());
       await document.save();
       const [error, createdEntity] = this.Entity.createFromObject(document.toObject());
       if (error) throw CustomError.badRequest(error);

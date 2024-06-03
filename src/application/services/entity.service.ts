@@ -1,11 +1,11 @@
-import { GenService } from './gen.service';
+import { GenericService } from './generic.service';
 import { EntityEntity } from '@entities';
 import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
 import { type IEntity } from '@interfaces/entities';
 import { type IEntityRepository } from '@interfaces/repositories';
 import { CustomError } from 'domain/errors/custom.error';
 
-export class EntityService extends GenService<IEntity, EntityEntity>{
+export class EntityService extends GenericService<IEntity, EntityEntity>{
 
   // DI
   constructor(
@@ -20,7 +20,7 @@ export class EntityService extends GenService<IEntity, EntityEntity>{
   async initializeRecords(id:string) {
     
     try {
-      const document = await this.repository.getById(id);
+      const entityEnity = await this.repository.getById(id);
       
       // if (document){
       //   await document.populate('dataSource', 'appName apiUrl apiAuthorizationType apiAuthorizationCredentials');
