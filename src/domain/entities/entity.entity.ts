@@ -20,7 +20,7 @@ export class EntityEntity extends GenericEntity {
 
   static override createFromObject(pojoObject: Record<string, any>): [string?, EntityEntity?] {
    
-    const { name, dataSource, apiResourceName } = pojoObject;
+    const { id, name, dataSource, apiResourceName } = pojoObject;
 
     if (!name) return ['Name is required'];
 
@@ -30,6 +30,7 @@ export class EntityEntity extends GenericEntity {
     if (!apiResourceName) return ['ApiResourceName is required'];
 
     return [undefined, new EntityEntity({
+      id, 
       name,
       dataSource,
       apiResourceName,

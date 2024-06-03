@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { DataSourceService } from "@services";
 import { DataSourceController } from "../controllers/data-source.controller";
+import { DataSourceRepository } from "@repositories";
 
 export class DataSourceRouter {
 
@@ -8,7 +9,8 @@ export class DataSourceRouter {
     
     const router = Router();
 
-    const service = new DataSourceService();
+    const repository = new DataSourceRepository();
+    const service = new DataSourceService(repository);
     const controller = new DataSourceController(service);
     
     // set all the routes
