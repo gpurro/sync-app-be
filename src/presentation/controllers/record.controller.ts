@@ -1,7 +1,6 @@
 import { RecordService } from '@services';
 import { RecordEntity } from '@entities';
 import { GenericController } from './generic.controller';
-import { type IRecord } from '@interfaces/entities';
 
 export class RecordController extends GenericController<RecordEntity> {
 
@@ -12,7 +11,7 @@ export class RecordController extends GenericController<RecordEntity> {
     super(
       'record',
       recordService,
-      RecordEntity.createFromObject
+      RecordEntity
     );
   }
 

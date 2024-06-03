@@ -8,7 +8,7 @@ export class DataSourceEntity extends GenericEntity implements IDataSource {
   public apiAuthorizationType: IApiAuthorizationType='noAuth';
   public apiAuthorizationCredentials: IApiAuthorizationCredentials|null=null;
 
-  constructor(dataSource: IDataSource) {
+  constructor(dataSource: DataSourceEntity) {
     super(dataSource);
     this.appName=dataSource.appName;
     this.apiUrl=dataSource.apiUrl;
@@ -20,19 +20,4 @@ export class DataSourceEntity extends GenericEntity implements IDataSource {
     return super.toObject() as IDataSource;    
   }    
 
-  static override createFromObject(pojoObject: Record<string, any>): [string?, DataSourceEntity?] {
-   
-    const { id, name, appName, apiUrl, apiAuthorizationType, apiAuthorizationCredentials } = pojoObject;
-
-    if (!name) return ['Name is required'];
-
-    return [undefined, new DataSourceEntity({
-      id,
-      name,
-      appName,
-      apiUrl,
-      apiAuthorizationType: apiAuthorizationType || 'noAuth',
-      apiAuthorizationCredentials
-    })];
-  }
 }

@@ -6,7 +6,7 @@ export class RecordEntity extends GenericEntity implements IRecord {
 
   public entity: string | Record<string,any> | IEntity;
 
-  constructor(record: IRecord) {
+  constructor(record: RecordEntity) {
     super(record);
     this.entity=record.entity;
   }
@@ -15,18 +15,4 @@ export class RecordEntity extends GenericEntity implements IRecord {
     return super.toObject() as IRecord;    
   }  
 
-  static override createFromObject(pojoObject: Record<string, any>): [string?, RecordEntity?] {
-   
-    const { name, entity } = pojoObject;
-
-    if (!name) return ['Name is required'];
-
-    if (!entity) return ['Entity is required'];
-    if (!Validators.isMongoID(entity)) return ['Invalid Entity ID'];
-
-    return [undefined, new RecordEntity({
-      name,
-      entity,
-    })];
-  }
 }

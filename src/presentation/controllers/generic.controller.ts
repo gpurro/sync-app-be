@@ -4,14 +4,14 @@ import { GenericEntity, PaginationEntity } from '@entities';
 import { GenericService } from '@services';
 import { Validators } from '@config';
 import { CustomError } from 'domain/errors/custom.error';
-import { IGeneric } from '@interfaces/entities';
+import { EntityClass } from '@interfaces/entities';
 
 export abstract class GenericController <E extends GenericEntity> {
 
   constructor(
-    public readonly  resourceName: string,
+    public readonly resourceName: string,
     public readonly service: GenericService<E>,
-    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, E?],
+    private Entity: EntityClass<E>,
   ) {}
 
   protected handleError = ( error: unknown, res: Response ) => {
@@ -24,8 +24,11 @@ export abstract class GenericController <E extends GenericEntity> {
 
   create = async ( req: Request, res: Response ) => {
 
-    const [error, entityEntity] = this.createFromObject(req.body);
-    if (error) return res.status(400).json({ error });
+    // TODO: validate req.body
+    // const [error, entityEntity] = this.createFromObject(req.body);
+    // if (error) return res.status(400).json({ error });
+
+    const entityEntity = new this.Entity(req.body);
 
     this.service.create(entityEntity!)
       .then( entity => res.status(201).json(entity) )

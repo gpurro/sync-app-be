@@ -10,7 +10,7 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
 
   constructor(
     modelName: string,
-    private Entity: EntityClass<T, E>,
+    private Entity: EntityClass<E>,
   ) {
     this.model = mongoose.model<T>(modelName);
   }
@@ -19,9 +19,12 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     try {
       const document = new this.model(entity.toObject());
       await document.save();
-      const [error, createdEntity] = this.Entity.createFromObject(document.toObject());
-      if (error) throw CustomError.badRequest(error);
-      return createdEntity as E;
+      
+      // TODO: validate casting document.toObject() to E
+      // const [error, createdEntity] = this.Entity.createFromObject(document.toObject());
+      // if (error) throw CustomError.badRequest(error);
+      
+      return new this.Entity(document.toObject());
 
     } catch ( error ) {
       throw CustomError.internalServer(`${ error }`);
@@ -42,9 +45,11 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     
     if (!document) return null;
 
-    const [error, entity] = this.Entity.createFromObject(document.toObject());
-    if (error) throw CustomError.badRequest(error);
-    return entity!
+    // TODO: validate casting document.toObject() to E
+    // const [error, entity] = this.Entity.createFromObject(document.toObject());
+    // if (error) throw CustomError.badRequest(error);
+    
+    return new this.Entity(document.toObject());
   }
   
   async getAll(paginationEntity: PaginationEntity): Promise<IGetAllResponse<E>> {
@@ -60,9 +65,12 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
           .limit(limit)
       ]);
       const entities = documents.map( document => { 
-        const [error, entity] = this.Entity.createFromObject(document.toObject());
-        if (error) throw CustomError.badRequest(error);
-        return entity!
+        
+        // TODO: validate casting document.toObject() to E
+        // const [error, entity] = this.Entity.createFromObject(document.toObject());
+        // if (error) throw CustomError.badRequest(error);
+        
+        return new this.Entity(document.toObject());
       });
 
       return {

@@ -6,7 +6,7 @@ export abstract class GenericEntity implements IGeneric {
   public id: string|null=null;
   public name: string;
 
-  constructor(genericEntity: IGeneric) {
+  constructor(genericEntity: GenericEntity) {
     this.id = genericEntity.id || null;
     this.name = genericEntity.name;
   }
@@ -15,7 +15,4 @@ export abstract class GenericEntity implements IGeneric {
     return classToObject(this);    
   }
 
-  static createFromObject(pojoObject: Record<string, any>): [string?, GenericEntity?] {
-    throw new Error('Method not implemented! Use derived class');
-  }
 }

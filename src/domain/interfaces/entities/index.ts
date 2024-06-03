@@ -6,7 +6,4 @@ export * from './generic.interface';
 /**
  * Represents some Type of the Entity (class)
  */
-export type EntityClass<T, E> = { 
-  new (entity: T): E,
-  createFromObject(pojoObject: Record<string, any>): [string?, E?] 
-} 
+export type EntityClass<E> = { new (entity: E): E } 
