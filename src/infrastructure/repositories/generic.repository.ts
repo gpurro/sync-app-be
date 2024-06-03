@@ -12,8 +12,6 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     modelName: string,
     private Entity: EntityClass<T, E>,
   ) {
-    console.log(mongoose.models);
-    console.log(mongoose.model(modelName));
     this.model = mongoose.model<T>(modelName);
   }
   async create(entity: T): Promise<E> {

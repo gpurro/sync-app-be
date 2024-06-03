@@ -12,30 +12,14 @@ export abstract class GenService<T extends IGeneric, E extends GenericEntity>{
   ) {
   }
 
-  async create(genericEntityEntity: GenericEntity) {
+  async create(genericEntity: T) {
 
-    // const documentExists = await this.repository.findOne({ name: genericEntityEntity.name });
-    // if (documentExists) throw CustomError.badRequest( 'Document already exists with the same name' );
-
-    // try {
-    //   const document = new this.genericModel( {
-    //     ...genericEntityEntity,
-    //     // user: user.id,
-    //   } );
-
-    //   await document.save();
-
-    //   return document.toObject();
-
-    // } catch ( error ) {
-    //   throw CustomError.internalServer(`${ error }`);
-    // }    
+    return this.repository.create(genericEntity);
   }
   
   async getOne(id:string): Promise<E|null> {
 
     return await this.repository.getById(id);
-        
   }
 
   async getAll(paginationEntity: PaginationEntity) {

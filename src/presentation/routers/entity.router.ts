@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { EntityService } from "@services";
 import { EntityController } from "../controllers/entity.controller";
+import { EntityRepository } from "@repositories";
 
 export class EntityRouter {
 
@@ -8,7 +9,8 @@ export class EntityRouter {
     
     const router = Router();
 
-    const service = new EntityService();
+    const repository = new EntityRepository();
+    const service = new EntityService(repository);
     const controller = new EntityController(service);
     
     // set all the routes

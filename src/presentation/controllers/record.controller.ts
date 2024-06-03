@@ -1,8 +1,9 @@
 import { RecordService } from '@services';
-import { GenericController } from './generic.controller';
 import { RecordEntity } from '@entities';
+import { GenController } from './gen.controller';
+import { type IRecord } from '@interfaces/entities';
 
-export class RecordController extends GenericController {
+export class RecordController extends GenController<IRecord, RecordEntity> {
 
   // DI
   constructor(
@@ -14,4 +15,5 @@ export class RecordController extends GenericController {
       RecordEntity.createFromObject
     );
   }
+
 }

@@ -1,16 +1,20 @@
-import { RecordModel } from '../../infrastructure';
-import { GenericService } from './generic.service';
+import { GenService } from './gen.service';
+import { RecordEntity } from '@entities';
+ 
+import { type IRecord } from '@interfaces/entities';
+import { type IRecordRepository } from '@interfaces/repositories';
 
-export class RecordService extends GenericService {
+export class RecordService extends GenService<IRecord, RecordEntity>{
 
   // DI
-  constructor() { 
+  constructor(
+    protected readonly repository: IRecordRepository
+  ) { 
     super(
-      'entity', 
-      RecordModel
+      'record',
+      repository
     );
   }
-
 }
 
 

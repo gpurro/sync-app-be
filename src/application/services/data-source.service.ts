@@ -1,7 +1,8 @@
-import { IDataSource } from '@interfaces/entities';
 import { GenService } from './gen.service';
 import { DataSourceEntity } from '@entities';
-import { IDataSourceRepository } from '@interfaces/repositories';
+
+import { type IDataSource } from '@interfaces/entities';
+import { type IDataSourceRepository } from '@interfaces/repositories';
 
 export class DataSourceService extends GenService<IDataSource, DataSourceEntity>{
 

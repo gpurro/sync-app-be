@@ -1,10 +1,11 @@
-import { EntityService } from '@services';
-import { GenericController } from './generic.controller';
-import { Validators } from '@config';
 import { Response, Request } from 'express';
+import { EntityService } from '@services';
 import { EntityEntity } from '@entities';
+import { GenController } from './gen.controller';
+import { type IEntity } from '@interfaces/entities';
+import { Validators } from '@config';
 
-export class EntityController extends GenericController {
+export class EntityController extends GenController<IEntity, EntityEntity> {
 
   // DI
   constructor(
@@ -16,9 +17,9 @@ export class EntityController extends GenericController {
       EntityEntity.createFromObject
     );
   }
-
+  
   initializeRecords = async (req: Request, res: Response) => {
-
+  
     const id = req.params.id;
     if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
     
@@ -26,5 +27,4 @@ export class EntityController extends GenericController {
       .then( document => res.json(document))
       .catch(error => this.handleError(error, res));
   };
-
 }

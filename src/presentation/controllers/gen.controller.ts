@@ -27,7 +27,7 @@ export abstract class GenController <T extends IGeneric, E extends GenericEntity
     const [error, genericEntity] = this.createFromObject(req.body);
     if (error) return res.status(400).json({ error });
 
-    this.apiService.create(genericEntity!)
+    this.apiService.create(genericEntity!.toObject())
       .then( documents => res.status(201).json(documents) )
       .catch( error => this.handleError(error, res) );
   };
