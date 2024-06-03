@@ -1,7 +1,7 @@
 import { StringSchemaDefinition } from "mongoose";
-import { DataSource, Entity } from "@interfaces/entities";
+import { IDataSource, IEntity } from "@interfaces/entities";
 
-export const seedData: {dataSources: DataSource[], entities: Entity[] } = {
+export const seedData: {dataSources: IDataSource[], entities: IEntity[] } = {
   dataSources: [
     {
       name: 'PC', 

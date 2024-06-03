@@ -1,7 +1,7 @@
 import { environment as env } from '@config';
 import { DataSourceModel, EntityModel, MongoDb } from '../../infrastructure';
 import { seedData } from './data';
-import { Entity } from '@interfaces/entities';
+import { IEntity } from '@interfaces/entities';
 
 
 (async()=> {
@@ -28,7 +28,7 @@ async function main() {
 
   // 3. Create Entities
   const products = await EntityModel.insertMany(
-    seedData.entities.map((entity: Entity) => {
+    seedData.entities.map((entity: IEntity) => {
 
       const dataSource = dataSources.find( dataSource => entity.dataSource==dataSource.name );
 

@@ -3,7 +3,7 @@ import http from 'http';
 import path from 'path';
 import { allowCORS } from './middleware/allow-cors.middleware';
 
-interface ConfigurationOptions {
+interface IConfigurationOptions {
   port: number;
   publicPath: string;
   router: Router;
@@ -18,7 +18,7 @@ export class AppServer {
   private readonly publicPath: string;
   private readonly router: Router;
 
-  constructor(configurationOptions: ConfigurationOptions){
+  constructor(configurationOptions: IConfigurationOptions){
     this.port = configurationOptions.port;
     this.publicPath = configurationOptions.publicPath;
     this.router = configurationOptions.router;

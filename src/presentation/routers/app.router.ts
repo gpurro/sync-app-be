@@ -4,14 +4,14 @@ import { EntityRouter } from "./entity.router";
 import { RecordRouter } from "./record.router";
 import { SwaggerRouter } from "./swagger.router";
 
-export interface RouterOptions {
+export interface IRouterOptions {
   swagger: { 
     enabled: boolean 
   };
 }
 export class AppRouter {
 
-  static router(routerOptions: RouterOptions): Router {
+  static router(routerOptions: IRouterOptions): Router {
 
     const router = Router();
 

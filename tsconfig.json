@@ -38,6 +38,7 @@
       // "@middleware/*": ["presentation/middleware/*"],
       // "@routers/*": ["presentation/routers/*"],
       "@interfaces/services": ["application/interfaces/services/index.ts"],
+      "@interfaces/repositories": ["application/interfaces/repositories/index.ts"],
       "@interfaces/entities": ["domain/interfaces/entities/index.ts"],
     },                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */

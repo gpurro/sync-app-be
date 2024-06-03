@@ -1,6 +1,6 @@
-import { Entity } from "./entity.interface";
-import { GenericEntity } from "./generic-entity.interface";
+import { IEntity } from "./entity.interface";
+import { IGeneric } from "./generic.interface";
 
-export interface IRecord extends GenericEntity {
-  entity: string | Record<string,any> | Entity;
+export interface IRecord extends IGeneric {
+  entity: string | Record<string,any> | IEntity;
 };

@@ -1,6 +1,6 @@
 import { CustomError } from "domain/errors/custom.error";
 import { GenericModel } from "../../infrastructure";
-import { PaginationEntity, GenericEntityEntity } from '@entities';
+import { PaginationEntity, GenericEntity } from '@entities';
 
 export abstract class GenericService {
 
@@ -10,7 +10,7 @@ export abstract class GenericService {
   ) {
   }
 
-  async create(genericEntityEntity: GenericEntityEntity) {
+  async create(genericEntityEntity: GenericEntity) {
 
     const documentExists = await this.genericModel.findOne({ name: genericEntityEntity.name });
     if (documentExists) throw CustomError.badRequest( 'Document already exists with the same name' );

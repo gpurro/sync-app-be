@@ -1,5 +1,5 @@
 import { GenericService } from "@services";
-import { type DataSource, type Entity } from "@interfaces/entities";
+import { type IDataSource, type IEntity } from "@interfaces/entities";
 import { createApiConnection } from "../../data-sources/planning-center.api-connection";
 
 export class PcGroupsEntityManager {
@@ -9,9 +9,9 @@ export class PcGroupsEntityManager {
   ){
 
   }
-  public async initializeRecords(entity: Entity) {
+  public async initializeRecords(entity: IEntity) {
     
-    const dataSource = entity.dataSource as DataSource;
+    const dataSource = entity.dataSource as IDataSource;
     
     const apiConnection = createApiConnection(dataSource);
     

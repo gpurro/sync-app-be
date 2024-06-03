@@ -1,6 +1,6 @@
 
 import { Response, Request } from 'express';
-import { GenericEntityEntity, PaginationEntity } from '@entities';
+import { GenericEntity, PaginationEntity } from '@entities';
 import { GenericService } from '@services';
 import { Validators } from '@config';
 import { CustomError } from 'domain/errors/custom.error';
@@ -10,7 +10,7 @@ export abstract class GenericController {
   constructor(
     public readonly  resourceName: string,
     public readonly apiService: GenericService,
-    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, GenericEntityEntity?],
+    public readonly createFromObject: (pojoObject: Record<string, any>) => [string?, GenericEntity?],
   ) {}
 
   protected handleError = ( error: unknown, res: Response ) => {

@@ -1,21 +1,21 @@
-import { ApiAuthorizationCredentials, ApiAuthorizationType, DataSource } from "@interfaces/entities";
-import { GenericEntityEntity } from "./generic-entity.entity";
+import { IApiAuthorizationCredentials, IApiAuthorizationType, IDataSource } from "@interfaces/entities";
+import { GenericEntity } from "./generic.entity";
 
-export class DataSourceEntity extends GenericEntityEntity {
+export class DataSourceEntity extends GenericEntity {
 
   public appName:string|null=null;
   public apiUrl:string|null=null;
-  public apiAuthorizationType:ApiAuthorizationType='noAuth';
-  public apiAuthorizationCredentials:ApiAuthorizationCredentials|null=null;
+  public apiAuthorizationType:IApiAuthorizationType='noAuth';
+  public apiAuthorizationCredentials:IApiAuthorizationCredentials|null=null;
 
-  constructor(dataSource: DataSource) {
+  constructor(dataSource: IDataSource) {
     super(dataSource);
     this.appName=dataSource.appName || null;
     this.apiUrl=dataSource.apiUrl;
   }
 
   toObject() {
-    return super.toObject() as DataSource;    
+    return super.toObject() as IDataSource;    
   }    
 
   static override createFromObject(pojoObject: Record<string, any>): [string?, DataSourceEntity?] {

@@ -1,36 +1,36 @@
-import { GenericEntity } from "./generic-entity.interface";
+import { IGeneric } from "./generic.interface";
 
-export type ApiAuthorizationType =  'noAuth' | 'basicAuth' | 'bearerToken' | 'oAuth2' | 'apiKey';
+export type IApiAuthorizationType =  'noAuth' | 'basicAuth' | 'bearerToken' | 'oAuth2' | 'apiKey';
 
-export type ApiAuthorizationCredentials = {
-  basicAuth?: ApiAuthorizationCredentialsBasicAuth,
-  bearerToken?: ApiAuthorizationCredentialsBearerToken,
-  oAuth2?: ApiAuthorizationCredentialsOAuth2,
-  apiKey?: ApiAuthorizationCredentialsApiKey
+export type IApiAuthorizationCredentials = {
+  basicAuth?: IApiAuthorizationCredentialsBasicAuth,
+  bearerToken?: IApiAuthorizationCredentialsBearerToken,
+  oAuth2?: IApiAuthorizationCredentialsOAuth2,
+  apiKey?: IApiAuthorizationCredentialsApiKey
 }
 
-export interface DataSource extends GenericEntity {
+export interface IDataSource extends IGeneric {
   appName?: string;
   apiUrl: string;
-  apiAuthorizationType: ApiAuthorizationType;
-  apiAuthorizationCredentials?: ApiAuthorizationCredentials;
+  apiAuthorizationType: IApiAuthorizationType;
+  apiAuthorizationCredentials?: IApiAuthorizationCredentials;
 };
 
-export interface ApiAuthorizationCredentialsBasicAuth {
+export interface IApiAuthorizationCredentialsBasicAuth {
   username: string;
   password: string;
 };
 
-export interface ApiAuthorizationCredentialsBearerToken {
+export interface IApiAuthorizationCredentialsBearerToken {
   token: string;
 };
 
-export interface ApiAuthorizationCredentialsOAuth2 {
+export interface IApiAuthorizationCredentialsOAuth2 {
   token: string;
   headerPrefix: string;
 };
 
-export interface ApiAuthorizationCredentialsApiKey {
+export interface IApiAuthorizationCredentialsApiKey {
   key: string;
   value: string;
   addToMethod: 'header' | 'queryParams'

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { DataSource } from '@interfaces/entities';
+import { IDataSource } from '@interfaces/entities';
 
-export const createApiConnection = (dataSource: DataSource) => { 
+export const createApiConnection = (dataSource: IDataSource) => { 
   
   if (dataSource.apiAuthorizationCredentials && dataSource.apiAuthorizationCredentials.basicAuth) {
 

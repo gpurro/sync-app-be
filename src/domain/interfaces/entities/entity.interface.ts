@@ -1,7 +1,7 @@
-import { DataSource } from "./data-source.interface";
-import { GenericEntity } from "./generic-entity.interface";
+import { IDataSource } from "./data-source.interface";
+import { IGeneric } from "./generic.interface";
 
-export interface Entity extends GenericEntity {
-  dataSource: string | Record<string, unknown> | DataSource;
+export interface IEntity extends IGeneric {
+  dataSource: string | Record<string, unknown> | IDataSource;
   apiResourceName: string;
 };

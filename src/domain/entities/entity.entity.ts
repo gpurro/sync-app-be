@@ -1,21 +1,21 @@
 import { Document, StringSchemaDefinition } from "mongoose";
 import { Validators } from "../../config";
-import { GenericEntityEntity } from "./generic-entity.entity";
-import { Entity } from "@interfaces/entities";
+import { GenericEntity } from "./generic.entity";
+import { IEntity } from "@interfaces/entities";
 
-export class EntityEntity extends GenericEntityEntity {
+export class EntityEntity extends GenericEntity {
 
   public dataSource:string;
   public apiResourceName:string;
 
-  constructor(entity: Entity) {
+  constructor(entity: IEntity) {
     super(entity);
     this.dataSource=entity.dataSource as string;
     this.apiResourceName=entity.apiResourceName;
   }
 
   toObject() {
-    return super.toObject() as Entity;    
+    return super.toObject() as IEntity;    
   }  
 
   static override createFromObject(pojoObject: Record<string, any>): [string?, EntityEntity?] {
