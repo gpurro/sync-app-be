@@ -7,6 +7,7 @@ export const seedData: {dataSources: IDataSource[], entities: IEntity[] } = {
       name: 'PC', 
       appName: 'Planning Center',
       apiUrl: 'https://api.planningcenteronline.com/groups/v2',
+      pluginName: 'PlanningCenter.DataSourceManager',
       apiAuthorizationType: 'basicAuth',
       apiAuthorizationCredentials: {
         basicAuth: {
@@ -18,12 +19,13 @@ export const seedData: {dataSources: IDataSource[], entities: IEntity[] } = {
     { name: 'Other',
       appName: 'Other App',
       apiUrl: 'https://api.till.com/groups/v2',
+      pluginName: 'OtherPlugin!',
       apiAuthorizationType: 'noAuth',
      },
   ],
 
   entities: [
-    { name: 'Groups', dataSource: 'PC', apiResourceName: 'groups'  },
-    { name: 'Plenty', dataSource: 'Other', apiResourceName: '[apiResourceName]' },
+    { name: 'Groups', dataSource: 'PC', apiResourceName: 'groups', pluginName:'PlanningCenter.Groups.EntityManager'  },
+    { name: 'Plenty', dataSource: 'Other', apiResourceName: '[apiResourceName]', pluginName:'xxxxxx!!' },
   ]
 };

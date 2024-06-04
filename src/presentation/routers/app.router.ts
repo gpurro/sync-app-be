@@ -7,8 +7,9 @@ import { SwaggerRouter } from "./swagger.router";
 export interface IRouterOptions {
   swagger: { 
     enabled: boolean 
-  };
+  }
 }
+
 export class AppRouter {
 
   static router(routerOptions: IRouterOptions): Router {

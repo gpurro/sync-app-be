@@ -7,6 +7,8 @@ Features:
 - MongoDb, Mongoose
 - OpenApi documentation (http://localhost:3000/api-docs)
 - Clean Architecture
+- Extensible Plugin system
+- Dependency Injection containers
 
 
 ## Install

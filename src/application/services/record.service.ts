@@ -10,8 +10,8 @@ export class RecordService extends GenericService<RecordEntity>{
     protected readonly repository: IRecordRepository
   ) { 
     super(
+      repository,
       'record',
-      repository
     );
   }
 }

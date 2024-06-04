@@ -12,6 +12,7 @@ export type IApiAuthorizationCredentials = {
 export interface IDataSource extends IGeneric {
   appName: string;
   apiUrl: string;
+  pluginName: string;
   apiAuthorizationType: IApiAuthorizationType;
   apiAuthorizationCredentials?: IApiAuthorizationCredentials|null;
 };

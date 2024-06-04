@@ -10,8 +10,8 @@ export class DataSourceService extends GenericService<DataSourceEntity>{
     protected readonly repository: IDataSourceRepository
   ) { 
     super(
+      repository,
       'data_source',
-      repository
     );
   }
 }

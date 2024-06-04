@@ -1,6 +1,5 @@
 import { GenericService } from './generic.service';
 import { EntityEntity } from '@entities';
-import { PcGroupsEntityManager } from '../../plugins/entities';
 import { type IEntityRepository } from '@interfaces/repositories';
 import { CustomError } from 'domain/errors/custom.error';
 
@@ -11,8 +10,8 @@ export class EntityService extends GenericService<EntityEntity>{
     protected readonly repository: IEntityRepository
   ) { 
     super(
+      repository,
       'entity',
-      repository
     );
   }
   
@@ -20,6 +19,7 @@ export class EntityService extends GenericService<EntityEntity>{
     
     try {
       const entityEnity = await this.repository.getOne(id);
+      console.log(entityEnity);
       
       // if (document){
       //   await document.populate('dataSource', 'appName apiUrl apiAuthorizationType apiAuthorizationCredentials');

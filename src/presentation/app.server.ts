@@ -20,9 +20,9 @@ export class AppServer {
   private readonly port: number;
   private readonly publicPath: string;
   private readonly router: Router;
-  private readonly pluginManager: PluginManager;
+  public readonly pluginManager: PluginManager;
 
-  constructor(configurationOptions: IConfigurationOptions){
+  constructor(configurationOptions: any){
     this.port = configurationOptions.port;
     this.publicPath = configurationOptions.publicPath;
     this.router = configurationOptions.router;

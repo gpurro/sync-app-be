@@ -1,12 +1,16 @@
 import { PaginationEntity, GenericEntity } from '@entities';
 import { IGenericRepository } from "@interfaces/repositories";
+import { PluginManager } from 'infrastructure/plugin-manager';
+import { container } from 'tsyringe';
 
 export abstract class GenericService<E extends GenericEntity>{
 
+  protected pluginManager: PluginManager;
   constructor(
-    protected readonly resourceName: string,
     protected readonly repository: IGenericRepository<E> ,
+    protected readonly resourceName: string,
   ) {
+    this.pluginManager = container.resolve("PluginManager");
   }
 
   async create(genericEntity: E) {
