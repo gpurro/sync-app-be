@@ -19,7 +19,7 @@ export class EntityService extends GenericService<EntityEntity>{
   async initializeRecords(id:string) {
     
     try {
-      const entityEnity = await this.repository.getById(id);
+      const entityEnity = await this.repository.getOne(id);
       
       // if (document){
       //   await document.populate('dataSource', 'appName apiUrl apiAuthorizationType apiAuthorizationCredentials');

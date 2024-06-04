@@ -16,7 +16,7 @@ export abstract class GenericService<E extends GenericEntity>{
   
   async getOne(id:string): Promise<E|null> {
 
-    return await this.repository.getById(id);
+    return await this.repository.getOne(id);
   }
 
   async getAll(paginationEntity: PaginationEntity) {

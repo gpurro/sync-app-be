@@ -34,6 +34,7 @@
     "paths": {
       "@config": ["config/index.ts"],
       "@services": ["application/services/index.ts"],
+      "@dtos": ["application/dtos/index.ts"],
       "@entities": ["domain/entities/index.ts"],
       "@repositories": ["infrastructure/repositories/index.ts"],
       // "@middleware/*": ["presentation/middleware/*"],

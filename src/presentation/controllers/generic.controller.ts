@@ -8,6 +8,8 @@ import { EntityClass } from '@interfaces/entities';
 
 export abstract class GenericController <E extends GenericEntity> {
 
+  public validateCreateOperation?: (data: Record<string, unknown>) => Promise<void>;
+
   constructor(
     public readonly resourceName: string,
     public readonly service: GenericService<E>,
@@ -24,10 +26,13 @@ export abstract class GenericController <E extends GenericEntity> {
 
   create = async ( req: Request, res: Response ) => {
 
-    // TODO: validate req.body
-    // const [error, entityEntity] = this.createFromObject(req.body);
-    // if (error) return res.status(400).json({ error });
-
+    if (this.validateCreateOperation) { 
+      try {
+        await this.validateCreateOperation(req.body);
+      } catch (error) {
+        return this.handleError(error, res);
+      }
+    }
     const entityEntity = new this.Entity(req.body);
 
     this.service.create(entityEntity!)

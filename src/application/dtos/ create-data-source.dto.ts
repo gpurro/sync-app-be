@@ -20,7 +20,7 @@ export class CreateDataSourceDto implements Partial<IDataSource> {
   
   public apiAuthorizationCredentials: IApiAuthorizationCredentials|null=null;
 
-  constructor(props: CreateDataSourceDto) {
+  constructor(props: Record<string, unknown>) {
     Object.assign(this, props);
   }
 }
