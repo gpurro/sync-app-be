@@ -5,5 +5,3 @@ export * from './mongo/models/data-source.model';
 export * from './mongo/models/entity.model';
 export * from './mongo/models/record.model';
 
-// generics
-export { Model as GenericModel }  from 'mongoose'

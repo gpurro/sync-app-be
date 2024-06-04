@@ -1,6 +1,6 @@
 import { GenericService } from './generic.service';
 import { EntityEntity } from '@entities';
-import { PcGroupsEntityManager } from '../../plugins/entities/pc-groups';
+import { PcGroupsEntityManager } from '../../plugins/entities';
 import { type IEntityRepository } from '@interfaces/repositories';
 import { CustomError } from 'domain/errors/custom.error';
 

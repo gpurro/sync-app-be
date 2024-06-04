@@ -39,6 +39,7 @@
       "@repositories": ["infrastructure/repositories/index.ts"],
       // "@middleware/*": ["presentation/middleware/*"],
       // "@routers/*": ["presentation/routers/*"],
+      "@plugin-types": ["infrastructure/plugin-manager/plugin-types/index.ts"],
       "@interfaces/services": ["application/interfaces/services/index.ts"],
       "@interfaces/repositories": ["application/interfaces/repositories/index.ts"],
       "@interfaces/entities": ["domain/interfaces/entities/index.ts"],
