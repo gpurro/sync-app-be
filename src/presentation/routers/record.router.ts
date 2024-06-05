@@ -15,6 +15,7 @@ export class RecordRouter {
     
     // set all the routes
     router.get( '/', controller.getAll);
+    router.get( '/:id', controller.getOne); 
     router.post( '/', controller.create);
 
     return router;

@@ -1,7 +1,9 @@
 import { GenericService } from './generic.service';
 import { EntityEntity } from '@entities';
 import { type IEntityRepository } from '@interfaces/repositories';
+import { EntityManagerPluginType } from '@plugin-types';
 import { CustomError } from 'domain/errors/custom.error';
+import { RecordService } from './record.service';
 
 export class EntityService extends GenericService<EntityEntity>{
 
@@ -18,9 +20,18 @@ export class EntityService extends GenericService<EntityEntity>{
   async initializeRecords(id:string) {
     
     try {
-      const entityEnity = await this.repository.getOne(id);
-      console.log(entityEnity);
+      const entity = await this.repository.getOne(id);
+      console.log(entity);
       
+      // Load the plugin
+      const entityManager = this.pluginManager.loadPlugin<EntityManagerPluginType>(entity?.pluginName!);
+
+      // init the plugin
+      entityManager.init({
+        dataSourceManagerPluginName: 'PlanningCenter.DataSourceManager',
+        entity: entity!,
+      });
+
       // if (document){
       //   await document.populate('dataSource', 'appName apiUrl apiAuthorizationType apiAuthorizationCredentials');
       // }
@@ -31,7 +42,7 @@ export class EntityService extends GenericService<EntityEntity>{
   
       // const pojoEntity = entity?.toObject();
       
-      // return entityManager.initializeRecords(pojoEntity!);
+      return entityManager.initializeRecords();
       
     } catch (error) {
       console.log(error);

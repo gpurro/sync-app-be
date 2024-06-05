@@ -78,8 +78,8 @@ export class AppServer {
     });    
 
     // Load the plugin
-    const dataSourceManagerPlugin = this.pluginManager.loadPlugin<DataSourceManagerPluginType>('PlanningCenter.DataSourceManager');
-    const entityManagerPlugin = this.pluginManager.loadPlugin<EntityManagerPluginType>('PlanningCenter.Groups.EntityManager');
+    // const dataSourceManagerPlugin = this.pluginManager.loadPlugin<DataSourceManagerPluginType>('PlanningCenter.DataSourceManager');
+    // const entityManagerPlugin = this.pluginManager.loadPlugin<EntityManagerPluginType>('PlanningCenter.Groups.EntityManager');
     
 
   }
