@@ -58,18 +58,18 @@ export class Pagination {
     this.next = offset + limit < total ? offset + limit : null;
   }
 
-  public  getLinks(baseUrl: string, uri: any) {
-
+  public  getLinks(url: URL) {
+    
     let links = {} as Record<string, any>;
-  
-    links.self = uri;
-    links.first = this.paginationLinks(baseUrl, uri, this.buildPageQuery(this.first, this.limit));
-    links.last = this.paginationLinks(baseUrl, uri, this.buildPageQuery(this.last, this.limit));
+    
+    links.self = url.toString();
+    links.first = this.paginationLinks(url, this.buildPageQuery(this.first, this.limit));
+    links.last = this.paginationLinks(url, this.buildPageQuery(this.last, this.limit));
     if (this.prev != null) {
-      links.prev = this.paginationLinks(baseUrl, uri, this.buildPageQuery(this.prev, this.limit));
+      links.prev = this.paginationLinks(url, this.buildPageQuery(this.prev, this.limit));
     }
     if (this.next != null) {
-      links.next = this.paginationLinks(baseUrl, uri, this.buildPageQuery(this.next, this.limit));
+      links.next = this.paginationLinks(url, this.buildPageQuery(this.next, this.limit));
     }
   
     return links;
@@ -87,20 +87,11 @@ export class Pagination {
     return pagination;
   };
 
-  private paginationLinks(baseUrl: string, uri: any, query: any) {
+  private paginationLinks(url: URL, query: any) {
     
-    // var info = URL.parse(uri);
-    // var queryObj = qs.parse(info.query);
-  
-    // queryObj = { ...queryObj, ...query};
-    // info.search = '?' + qs.stringify(queryObj, {
-    //   encode: false
-    // });
-  
-    // return URL.format(info);
-
-    let newUrl = new URL(uri, baseUrl);
-    let queryObj = qs.parse(newUrl.search, { ignoreQueryPrefix: true });
+    //const base = `${url.protocol}//${url.hostname}${url.pathname}`;
+    let newUrl = new URL(url);
+    let queryObj = qs.parse(url.search, { ignoreQueryPrefix: true });
 
     queryObj = { ...queryObj, ...query};
     newUrl.search = '?' + qs.stringify(queryObj, {

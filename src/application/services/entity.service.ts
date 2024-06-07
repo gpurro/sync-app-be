@@ -20,8 +20,8 @@ export class EntityService extends GenericService<EntityEntity>{
   async initializeRecords(id:string) {
     
     try {
-      const entity = await this.repository.getOne(id);
-      console.log(entity);
+      const leanDocument = await this.repository.getOne(id) as EntityEntity;
+      const entity = new EntityEntity(leanDocument);
       
       // Load the plugin
       const entityManager = this.pluginManager.loadPlugin<EntityManagerPluginType>(entity?.pluginName!);

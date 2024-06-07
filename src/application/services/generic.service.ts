@@ -19,30 +19,38 @@ export abstract class GenericService<E extends GenericEntity>{
     return this.repository.create(genericEntity);
   }
   
-  async getOne(id:string): Promise<E|null> {
+  async getOne(id:string, url: URL): Promise<Record<string, any>|null> {
+    
+    const document = await this.repository.getOne(id);
+    const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
 
-    return await this.repository.getOne(id);
+    const extraOptions = {
+      self: url.toString(),
+      baseApiUrl
+    };
+
+    return JsonApiSerializer.serialize(this.resourceName, document, extraOptions)
   }
 
-  async getAll(queryOptions: Record<string, any>, baseUrl: string, requestedUrl: string) {
+  async getAll(queryOptions: Record<string, any>, url: URL): Promise<Record<string, any>> {
 
     const result =  await this.repository.getAll(queryOptions);
+    const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
 
     // Pagination links
     const pagination = new Pagination(queryOptions.page, result.total);
-    var paginationLinks = pagination.getLinks(baseUrl, requestedUrl);
+    const paginationLinks = pagination.getLinks(url);
 
     // Extra options
     const extraOptions = {
         count: result.data.length,
         ...pagination,
-        ...paginationLinks
+        ...paginationLinks,
+        baseApiUrl
     };
 
     // Serialize
-    const response = JsonApiSerializer.serialize(this.resourceName, result.data, extraOptions)
-    
-    return response;    
+    return JsonApiSerializer.serialize(this.resourceName, result.data, extraOptions)
   }  
 
 }

@@ -36,28 +36,28 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     throw new Error('Method not implemented.');
   }
   
-  async getOne(id: string): Promise<E|null> {
-    const document = await this.model.findOne({ _id: id }).exec();
-    if (!document) return null;
+  async getOne(id: string): Promise<Record<string,any>|null> {
 
-    const pojoDocument = document.toObject() as E; // cast the document to plain object to avoid mongoose methods and then cast to E
-    return new this.Entity(pojoDocument);
+    const leanDocument = await this.model.findOne({ _id: id }).lean().exec();
+    if (!leanDocument) return null;
+
+    return leanDocument;
   }
 
-  async getAll(queryOptions: Record<string, any>): Promise<any> {
+  async getAll(queryOptions: Record<string, any>): Promise<IGetAllResponse> {
     
     try {
 
       const query = this.getNewQuery(queryOptions);
 
-      const [total, documents] = await Promise.all([
+      const [total, leanDocuments] = await Promise.all([
         this.model.countDocuments(),
         query.exec()
       ]);
 
       return {
         total: total,
-        data: documents
+        data: leanDocuments
       };
 
     } catch ( error ) {

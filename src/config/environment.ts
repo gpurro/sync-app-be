@@ -6,4 +6,5 @@ export const environment = {
   PUBLIC_PATH: get('PUBLIC_PATH').default('public').asString(),
   MONGO_DB_NAME: get('MONGO_DB_NAME').required().asString(),
   MONGO_URL: get('MONGO_URL').required().asString(),
+  API_PATH: get('API_PATH').default('api').asString(),
 }

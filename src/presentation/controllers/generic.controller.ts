@@ -45,32 +45,34 @@ export abstract class GenericController <E extends GenericEntity> {
     req: Request<{}, {}, {}, { page: {} }>, 
     res: Response) => {
 
+    const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
+
     const pagination = {
       offset: 0,
       limit: 10,
       ...req.query.page
     };
+    const queryOptions = { 
+      ...jsonApiMongoParser.parse(this.resourceName, req.query), 
+      page: { 
+        ...pagination
+      }
+    };
 
-    const baseUrl = `${req.protocol}://${req.get('host')}`;
-    
-    const parsedQuery = jsonApiMongoParser.parse(this.resourceName, req.query)
-    const queryOptions = { ...parsedQuery, page: { ...pagination } };
-
-    console.log(queryOptions);
-    console.log(JSON.stringify(queryOptions.populate));
-    
-    this.service.getAll(queryOptions, baseUrl, req.originalUrl)
+    this.service.getAll(queryOptions, url)
       .then( result => res.json(result))
       .catch(error => this.handleError(error, res));    
   };
 
   getOne = async (req: Request, res: Response) => {
 
+    const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
     const id = req.params.id;
+   
     if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
     
-    this.service.getOne(id)
-      .then( enitity => res.json(enitity))
+    this.service.getOne(id, url)
+      .then( result => res.json(result))
       .catch(error => this.handleError(error, res));
   };
 }
