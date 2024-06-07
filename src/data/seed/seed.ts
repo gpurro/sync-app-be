@@ -1,5 +1,5 @@
 import { environment as env } from '@config';
-import { DataSourceModel, EntityModel, MongoDb } from '../../infrastructure';
+import { DataSourceModel, EntityModel, MongoDb, RecordModel } from '../../infrastructure';
 import { seedData } from './data';
 import { IEntity } from '@interfaces/entities';
 
@@ -20,7 +20,8 @@ async function main() {
   // 0. delete all!
   await Promise.all([
     DataSourceModel.deleteMany(),
-    EntityModel.deleteMany()
+    EntityModel.deleteMany(),
+    RecordModel.deleteMany(),
   ]);
 
   // 1. Create DataSources

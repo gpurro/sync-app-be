@@ -4,5 +4,5 @@ export * from './entity.entity';
 export * from './record.entity';
 
 // other entities
-export * from './pagination.entity';
+export * from './pagination';
 export * from './generic.entity';

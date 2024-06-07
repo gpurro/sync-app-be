@@ -1,4 +1,4 @@
-import { GenericEntity, PaginationEntity } from '@entities';
+import { GenericEntity } from '@entities';
 import { type EntityClass, type IGeneric } from '@interfaces/entities';
 import { type IGenericRepository, type IGetAllResponse } from '@interfaces/repositories';
 import { CustomError } from 'domain/errors/custom.error';
@@ -43,35 +43,50 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     const pojoDocument = document.toObject() as E; // cast the document to plain object to avoid mongoose methods and then cast to E
     return new this.Entity(pojoDocument);
   }
-  
-  async getAll(paginationEntity: PaginationEntity): Promise<IGetAllResponse<E>> {
-    
-    const { page, limit } = paginationEntity;
 
+  async getAll(queryOptions: Record<string, any>): Promise<any> {
+    
     try {
+
+      const query = this.getNewQuery(queryOptions);
 
       const [total, documents] = await Promise.all([
         this.model.countDocuments(),
-        this.model.find()
-          .skip((page - 1) * limit)
-          .limit(limit)
+        query.exec()
       ]);
-      const entities = documents.map( document => { 
-      
-      const pojoDocument = document.toObject() as E; // cast the document to plain object to avoid mongoose methods and then cast to E
-      return new this.Entity(pojoDocument);
-      });
 
       return {
-        page,
-        limit,
-        total,
-        data: entities
+        total: total,
+        data: documents
       };
 
     } catch ( error ) {
       throw CustomError.internalServer(`${ error }`);
     }  
-  } 
+  }
+
+  private getNewQuery(queryOptions: Record<string, any>) {
+    
+    const query = this.model.find().lean();
+    
+    // Select
+    query.select(queryOptions.select);
+  
+    // Sort
+    query.sort(queryOptions.sort);
+  
+    // Pagination
+    if (queryOptions.page) {
+      query.skip(queryOptions.page.skip);
+      query.limit(queryOptions.page.limit);
+    }
+  
+    // Populate
+    if (queryOptions.populate) {
+      query.populate(queryOptions.populate);
+    }
+
+    return query;
+  };
 
 }

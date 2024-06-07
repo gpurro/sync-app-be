@@ -1,10 +1,11 @@
 
 import { Response, Request } from 'express';
-import { GenericEntity, PaginationEntity } from '@entities';
+import { GenericEntity } from '@entities';
 import { GenericService } from '@services';
 import { Validators } from '@config';
 import { CustomError } from 'domain/errors/custom.error';
 import { EntityClass } from '@interfaces/entities';
+import jsonApiMongoParser from 'infrastructure/jsonApiMongoParser/json-api-mongo-parser';
 
 export abstract class GenericController <E extends GenericEntity> {
 
@@ -40,15 +41,27 @@ export abstract class GenericController <E extends GenericEntity> {
       .catch( error => this.handleError(error, res) );
   };
 
-  getAll = async (req: Request, res: Response) => {
+  getAll = async (
+    req: Request<{}, {}, {}, { page: {} }>, 
+    res: Response) => {
 
-    const { page = 1, limit = 10 } = req.query;
-    const [error, paginationEntity] = PaginationEntity.create(+page, +limit);
-    if (error) return res.status(400).json({ error });
+    const pagination = {
+      offset: 0,
+      limit: 10,
+      ...req.query.page
+    };
+
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
     
-    this.service.getAll(paginationEntity!)
-      .then( entities => res.json(entities))
-      .catch(error => this.handleError(error, res));
+    const parsedQuery = jsonApiMongoParser.parse(this.resourceName, req.query)
+    const queryOptions = { ...parsedQuery, page: { ...pagination } };
+
+    console.log(queryOptions);
+    console.log(JSON.stringify(queryOptions.populate));
+    
+    this.service.getAll(queryOptions, baseUrl, req.originalUrl)
+      .then( result => res.json(result))
+      .catch(error => this.handleError(error, res));    
   };
 
   getOne = async (req: Request, res: Response) => {

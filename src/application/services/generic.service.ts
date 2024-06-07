@@ -1,7 +1,8 @@
-import { PaginationEntity, GenericEntity } from '@entities';
+import { GenericEntity, Pagination } from '@entities';
 import { IGenericRepository } from "@interfaces/repositories";
 import { PluginManager } from 'infrastructure/plugin-manager';
 import { container } from 'tsyringe';
+import JsonApiSerializer from "../../infrastructure/serializer/json-api-serializer";
 
 export abstract class GenericService<E extends GenericEntity>{
 
@@ -23,17 +24,25 @@ export abstract class GenericService<E extends GenericEntity>{
     return await this.repository.getOne(id);
   }
 
-  async getAll(paginationEntity: PaginationEntity) {
+  async getAll(queryOptions: Record<string, any>, baseUrl: string, requestedUrl: string) {
 
-    const { page, limit } = paginationEntity;
+    const result =  await this.repository.getAll(queryOptions);
 
-    const getAllResponse =  await this.repository.getAll(paginationEntity);
+    // Pagination links
+    const pagination = new Pagination(queryOptions.page, result.total);
+    var paginationLinks = pagination.getLinks(baseUrl, requestedUrl);
+
+    // Extra options
+    const extraOptions = {
+        count: result.data.length,
+        ...pagination,
+        ...paginationLinks
+    };
+
+    // Serialize
+    const response = JsonApiSerializer.serialize(this.resourceName, result.data, extraOptions)
     
-    return { 
-      ...getAllResponse,
-      next: `/api/${ this.resourceName }?page=${ (page + 1) }&limit=${ limit }`,
-      prev: (page - 1 > 0) ? `/api/${ this.resourceName }?page=${ (page - 1) }&limit=${ limit }`: null,
-    };    
-  }
+    return response;    
+  }  
 
 }
