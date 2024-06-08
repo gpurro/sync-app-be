@@ -6,6 +6,7 @@ import { Validators } from '@config';
 import { CustomError } from 'domain/errors/custom.error';
 import { EntityClass } from '@interfaces/entities';
 import jsonApiMongoParser from 'infrastructure/jsonApiMongoParser/json-api-mongo-parser';
+import { IGenericRepository } from '@interfaces/repositories';
 
 export abstract class GenericController <E extends GenericEntity> {
 
@@ -42,7 +43,7 @@ export abstract class GenericController <E extends GenericEntity> {
   };
 
   getAll = async (
-    req: Request<{}, {}, {}, { page: {} }>, 
+    req: Request<any, any, any, { page: {} }>, 
     res: Response) => {
 
     const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
@@ -75,4 +76,33 @@ export abstract class GenericController <E extends GenericEntity> {
       .then( result => res.json(result))
       .catch(error => this.handleError(error, res));
   };
-}
+
+  getAllRelationship = (relationshipName: string, relationshipType: string, relationshipRepository: IGenericRepository<any> ) => {
+  
+    return async (
+        req: Request<any, any, any, { page: {} }>, 
+        res: Response) => {
+
+        const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
+        const id = req.params.id;
+   
+        if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
+
+        const pagination = {
+          offset: 0,
+          limit: 10,
+          ...req.query.page
+        };
+        const queryOptions = { 
+          ...req.query,
+          page: { 
+            ...pagination
+          }
+        };
+
+        this.service.getAllRelationship(id, relationshipName, relationshipType, relationshipRepository, queryOptions, url)
+          .then( result => res.json(result))
+          .catch(error => this.handleError(error, res));    
+      };  
+    };
+  }

@@ -47,7 +47,6 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
   async getAll(queryOptions: Record<string, any>): Promise<IGetAllResponse> {
     
     try {
-
       const query = this.getNewQuery(queryOptions);
 
       const [total, leanDocuments] = await Promise.all([
@@ -89,4 +88,92 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     return query;
   };
 
+  async getAllRelationship(id: string, relationshipName: string, relationshipType: string, relationshipRepository: IGenericRepository<any>, queryOptions: Record<string, any>): Promise<IGetAllResponse|Record<string, any>|null> {
+    
+    try {
+      const leanDocument = await this.model.findById(id).lean().exec() as any;
+            
+      const relationshipId = (
+        leanDocument[relationshipName] instanceof mongoose.Types.ObjectId ? 
+        leanDocument[relationshipName].toString() :
+        leanDocument[relationshipName]
+      );
+
+      if (Array.isArray(relationshipId)) { 
+        return await relationshipRepository.findByIds(relationshipId, queryOptions);
+      }
+      else {
+        return await relationshipRepository.findById(relationshipId, queryOptions);
+      }
+    } catch ( error ) {
+      throw CustomError.internalServer(`${ error }`);
+    }  
+  } 
+
+  async findByIds(ids: string[], queryOptions: Record<string, any>): Promise<IGetAllResponse> {
+      
+    try {
+      const conditions = { _id: { $in: ids } };
+      const query = this.model.find(conditions).lean();
+  
+      // Select
+      query.select(queryOptions.select);
+    
+      // Sort
+      query.sort(queryOptions.sort);
+    
+      // Pagination
+      if (queryOptions.page) {
+        query.skip(queryOptions.page.skip);
+        query.limit(queryOptions.page.limit);
+      }
+    
+      // Populate
+      if (queryOptions.populate) {
+        query.populate(queryOptions.populate);
+      }
+  
+      const [total, leanDocuments] = await Promise.all([
+        this.model.countDocuments(conditions),
+        query.exec()
+      ]);
+
+      return {
+        total: total,
+        data: leanDocuments
+      };
+
+    } catch ( error ) {
+      throw CustomError.internalServer(`${ error }`);
+    }
+  }
+
+  async findById(relationshipId: string, queryOptions: Record<string, any>): Promise<Record<string, any>|null> {
+      
+    try {
+      const query = this.model.findById(relationshipId).lean();
+  
+      // Select
+      query.select(queryOptions.select);
+    
+      // Sort
+      query.sort(queryOptions.sort);
+    
+      // Pagination
+      if (queryOptions.page) {
+        query.skip(queryOptions.page.skip);
+        query.limit(queryOptions.page.limit);
+      }
+    
+      // Populate
+      if (queryOptions.populate) {
+        query.populate(queryOptions.populate);
+      }
+  
+      return await query.exec();
+    } catch ( error ) {
+      throw CustomError.internalServer(`${ error }`);
+    }  
+  }
 }
+

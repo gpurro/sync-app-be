@@ -7,6 +7,7 @@ import JsonApiSerializer from "../../infrastructure/serializer/json-api-serializ
 export abstract class GenericService<E extends GenericEntity>{
 
   protected pluginManager: PluginManager;
+
   constructor(
     protected readonly repository: IGenericRepository<E> ,
     protected readonly resourceName: string,
@@ -51,6 +52,41 @@ export abstract class GenericService<E extends GenericEntity>{
 
     // Serialize
     return JsonApiSerializer.serialize(this.resourceName, result.data, extraOptions)
-  }  
+  } 
+
+  async getAllRelationship(id: string, relationshipName: string, relationshipType: string, relationshipRepository: IGenericRepository<any>, queryOptions: Record<string, any>, url: URL): Promise<Record<string, any>> {
+
+    const result =  await this.repository.getAllRelationship(id, relationshipName, relationshipType, relationshipRepository, queryOptions);
+    const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
+
+    let serializedData = null;
+    let extraOptions = {
+      self: url.toString(),
+      baseApiUrl
+    } as any;
+    // To many relationships?
+    if (result?.data) { 
+
+      // Pagination links
+      const pagination = new Pagination(queryOptions.page, result.total);
+      const paginationLinks = pagination.getLinks(url);
+
+      // Extra options
+      extraOptions = {
+          ...extraOptions,
+          count: result.data.length,
+          ...pagination,
+          ...paginationLinks,
+      };
+
+      serializedData = JsonApiSerializer.serialize(relationshipType, result.data, extraOptions);
+    }
+    else {
+      // To one relationship
+      serializedData = JsonApiSerializer.serialize(relationshipType, result, extraOptions);
+    }
+
+    return serializedData;
+  }    
 
 }
