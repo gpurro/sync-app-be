@@ -20,7 +20,7 @@ export class RecordRouter {
     // router.patch( '/:id', controller.update); 
     // router.delete( '/:id', controller.delete); 
 
-    // entity relationship
+    // "entity" relationship
     const entityRepository = new EntityRepository();
     router.get( '/:id/entity', controller.getAllRelationship('entity', 'entity', entityRepository)); 
     router.get( '/:id/relationships/entity', controller.getRelationship('entity')); 

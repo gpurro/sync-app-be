@@ -4,7 +4,7 @@ import { type IGenericRepository, type IGetAllResponse } from '@interfaces/repos
 import { CustomError } from 'domain/errors/custom.error';
 import mongoose, { Model } from 'mongoose';
 
-export abstract class GenericRepository<T extends IGeneric, E extends GenericEntity> implements IGenericRepository<E> {
+export abstract class GenericRepository<T extends IGeneric, E extends GenericEntity> implements IGenericRepository {
 
   protected model: Model<T>;
   
@@ -83,7 +83,7 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     return query;
   };
 
-  async getAllRelationship(id: string, relationshipName: string, relationshipType: string, relationshipRepository: IGenericRepository<any>, queryOptions: Record<string, any>): Promise<IGetAllResponse|Record<string, any>|null> {
+  async getAllRelationship(id: string, relationshipName: string, relationshipType: string, relationshipRepository: IGenericRepository, queryOptions: Record<string, any>): Promise<IGetAllResponse|Record<string, any>|null> {
     
     try {
       const leanDocument = await this.model.findById(id).lean().exec() as any;

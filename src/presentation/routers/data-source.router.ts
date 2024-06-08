@@ -16,6 +16,7 @@ export class DataSourceRouter {
     // set all the routes
     router.get( '/', controller.getAll );    
     router.post( '/', controller.create );
+    router.get( '/:id', controller.getOne); 
 
     return router;
   }

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { EntityService } from "@services";
 import { EntityController } from "../controllers/entity.controller";
-import { EntityRepository } from "@repositories";
+import { DataSourceRepository, EntityRepository } from "@repositories";
 
 export class EntityRouter {
 
@@ -95,6 +95,11 @@ export class EntityRouter {
      */
     router.get( '/:id', controller.getOne); 
     router.get( '/:id/initialize', controller.initializeRecords );
+
+    // "data-source" relationship
+    const dataSourceRepository = new DataSourceRepository();
+    router.get( '/:id/data_source', controller.getAllRelationship('dataSource', 'data_source', dataSourceRepository)); 
+    router.get( '/:id/relationships/data_source', controller.getRelationship('dataSource'));     
 
     return router;
   }
