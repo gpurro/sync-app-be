@@ -7,6 +7,7 @@ import { CustomError } from 'domain/errors/custom.error';
 import { EntityClass } from '@interfaces/entities';
 import jsonApiMongoParser from 'infrastructure/jsonApiMongoParser/json-api-mongo-parser';
 import { IGenericRepository } from '@interfaces/repositories';
+import jsonApiSerializer from '../../infrastructure/serializer/json-api-serializer';
 
 export abstract class GenericController <E extends GenericEntity> {
 
@@ -35,11 +36,27 @@ export abstract class GenericController <E extends GenericEntity> {
         return this.handleError(error, res);
       }
     }
-    const entityEntity = new this.Entity(req.body);
 
-    this.service.create(entityEntity!)
-      .then( entity => res.status(201).json(entity) )
-      .catch( error => this.handleError(error, res) );
+    const entityEntity = new this.Entity(req.body);
+    const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
+
+    try {
+      const leanDocument = await this.service.create(entityEntity!);
+      const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
+  
+      const extraOptions = {
+        self: url.toString(),
+        baseApiUrl
+      };
+  
+      const responseData = jsonApiSerializer.serialize(this.resourceName, leanDocument, extraOptions);
+  
+      res.setHeader('Content-Type', 'application/vnd.api+json; charset=utf-8');
+      res.status(201).json(responseData);
+
+    } catch (error) {
+      this.handleError(error, res)
+    }
   };
 
   getAll = async (

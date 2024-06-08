@@ -16,7 +16,7 @@ export abstract class GenericService<E extends GenericEntity>{
     this.pluginManager = container.resolve("PluginManager");
   }
 
-  async create(genericEntity: E) {
+  async create(genericEntity: E): Promise<Record<string, any>>{
 
     return this.repository.create(genericEntity);
   }

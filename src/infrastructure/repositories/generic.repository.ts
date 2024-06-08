@@ -14,13 +14,16 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
   ) {
     this.model = mongoose.model<T>(modelName);
   }
-  async create(entity: E): Promise<E> {
+  async create(entity: E): Promise<Record<string, any>> {
    
+    let document;
+
     try {
-      const document = new this.model(entity.toObject());
-      await document.save();
-      const pojoDocument = document.toObject() as E; // cast the document to plain object to avoid mongoose methods and then cast to E
-      return new this.Entity(pojoDocument);
+      document = new this.model(entity.toObject());
+      document = await document.save();
+      const leanDocument = await this.findById(document.id);
+      if (!leanDocument) throw new Error('Error saving document');
+      return leanDocument;
     }
     catch ( error ) {
       throw CustomError.internalServer(`${ error }`);
