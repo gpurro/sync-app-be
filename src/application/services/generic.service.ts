@@ -3,6 +3,7 @@ import { IGenericRepository } from "@interfaces/repositories";
 import { PluginManager } from 'infrastructure/plugin-manager';
 import { container } from 'tsyringe';
 import JsonApiSerializer from "../../infrastructure/serializer/json-api-serializer";
+import jsonApiSerializer from '../../infrastructure/serializer/json-api-serializer';
 
 export abstract class GenericService<E extends GenericEntity>{
 
@@ -22,7 +23,7 @@ export abstract class GenericService<E extends GenericEntity>{
   
   async getOne(id:string, url: URL): Promise<Record<string, any>|null> {
     
-    const document = await this.repository.getOne(id);
+    const document = await this.repository.findById(id);
     const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
 
     const extraOptions = {
@@ -87,6 +88,43 @@ export abstract class GenericService<E extends GenericEntity>{
     }
 
     return serializedData;
-  }    
+  }
+
+  async getRelationship(id:string, queryOptions: Record<string, any>, url: URL, relationshipName: string): Promise<Record<string, any>|null> {
+    
+    const document = await this.repository.findById(id, queryOptions);
+
+    const baseApiUrl = `${url.protocol}//${url.hostname}/api`;
+    const extraOptions = {
+      self: url.toString(),
+      baseApiUrl
+    } as any;
+
+    // serialized document
+    const serializedData = jsonApiSerializer.serialize(this.resourceName, document, extraOptions);
+
+    // serialized relationship
+    const serializedRelationship = serializedData.data.relationships[relationshipName];
+
+    // response
+    let response = {
+      ...serializedData.jsonapi,
+    };
+    
+    // meta
+    if (Array.isArray(serializedRelationship.data)) {
+      response.meta = {
+        count: serializedRelationship.data.length
+      }
+    }
+
+    // links + data
+    response = {
+      ...response,
+      ...serializedRelationship
+    };
+
+    return response;
+  }  
 
 }

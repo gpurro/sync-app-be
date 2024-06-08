@@ -105,4 +105,34 @@ export abstract class GenericController <E extends GenericEntity> {
           .catch(error => this.handleError(error, res));    
       };  
     };
+
+    getRelationship = (relationshipName: string) => {
+  
+      return async (
+        req: Request<any, any, any, { page: {} }>, 
+        res: Response
+      ) => {
+
+        const id = req.params.id;
+        if (!Validators.isMongoID(id)) return res.status(400).json({ error: 'Received Id is not an ObjectID' });
+
+        const url = new URL(req.originalUrl, `${req.protocol}://${req.hostname}`);
+
+        const pagination = {
+          offset: 0,
+          limit: 10,
+          ...req.query.page
+        };
+        const queryOptions = { 
+          ...jsonApiMongoParser.parse(this.resourceName, req.query), 
+          page: { 
+            ...pagination
+          }
+        };        
+       
+        this.service.getRelationship(id, queryOptions, url, relationshipName)
+          .then( result => res.json(result))
+          .catch(error => this.handleError(error, res));
+      }
+    }
   }

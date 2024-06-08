@@ -36,14 +36,6 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     throw new Error('Method not implemented.');
   }
   
-  async getOne(id: string): Promise<Record<string,any>|null> {
-
-    const leanDocument = await this.model.findOne({ _id: id }).lean().exec();
-    if (!leanDocument) return null;
-
-    return leanDocument;
-  }
-
   async getAll(queryOptions: Record<string, any>): Promise<IGetAllResponse> {
     
     try {
@@ -148,22 +140,13 @@ export abstract class GenericRepository<T extends IGeneric, E extends GenericEnt
     }
   }
 
-  async findById(relationshipId: string, queryOptions: Record<string, any>): Promise<Record<string, any>|null> {
+  async findById(id: string, queryOptions: Record<string, any>={}): Promise<Record<string, any>|null> {
       
     try {
-      const query = this.model.findById(relationshipId).lean();
+      const query = this.model.findById(id).lean();
   
       // Select
       query.select(queryOptions.select);
-    
-      // Sort
-      query.sort(queryOptions.sort);
-    
-      // Pagination
-      if (queryOptions.page) {
-        query.skip(queryOptions.page.skip);
-        query.limit(queryOptions.page.limit);
-      }
     
       // Populate
       if (queryOptions.populate) {
