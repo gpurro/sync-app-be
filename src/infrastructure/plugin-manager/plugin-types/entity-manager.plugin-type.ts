@@ -41,6 +41,8 @@ export abstract class EntityManagerPluginType {
       const repository = new RecordRepository();
       const recordService = new RecordService(repository);
       
+      const promises: Promise<any>[] = [];
+
       groups.forEach((group: any) => { 
         console.log(group.attributes.name);
         
@@ -49,9 +51,12 @@ export abstract class EntityManagerPluginType {
           entity: this.entity.id,
         } as RecordEntity);
         
-        recordService.create(record);
+        promises.push(recordService.create(record));
       });
-    return resp.data;
+
+      await Promise.all(promises);
+
+      return resp.data;
     }    
   }
 }

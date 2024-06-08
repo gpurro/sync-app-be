@@ -20,7 +20,7 @@ export class EntityService extends GenericService<EntityEntity>{
   async initializeRecords(id:string) {
     
     try {
-      const leanDocument = await this.repository.findById(id) as EntityEntity;
+      const leanDocument = await this.repository.findById(id, { populate: {path:'dataSource'} }) as EntityEntity;
       const entity = new EntityEntity(leanDocument);
       
       // Load the plugin
